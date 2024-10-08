@@ -1,5 +1,3 @@
-/** @format */
-
 import bcrypt from "bcrypt";
 import { envs } from "../../config/envs/env.config";
 

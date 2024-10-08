@@ -5,6 +5,8 @@ import { errorHandler } from "../middlewares/errorHandler";
 
 const router = Router();
 
+//ACA VAN TODAS LAS RUTAS
+
 //404
 router.use((req: Request, res: Response, next: NextFunction) => {
   next(new NotFoundError());
