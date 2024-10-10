@@ -24,8 +24,9 @@ interface FormFieldContextValue<
   name: TName
 }
 
+const formFieldValue = {}
 const FormFieldContext = React.createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue
+  formFieldValue as FormFieldContextValue
 )
 
 const FormField = <
@@ -48,7 +49,7 @@ const useFormField = () => {
 
   const fieldState = getFieldState(fieldContext.name, formState)
 
-  if (!fieldContext) {
+  if (fieldContext === undefined) {
     throw new Error('useFormField should be used within <FormField>')
   }
 
@@ -68,8 +69,9 @@ interface FormItemContextValue {
   id: string
 }
 
+const formItemValue = {}
 const FormItemContext = React.createContext<FormItemContextValue>(
-  {} as FormItemContextValue
+  formItemValue as FormItemContextValue
 )
 
 const FormItem = React.forwardRef<
@@ -95,7 +97,7 @@ React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
   return (
     <Label
       ref={ref}
-      className={cn(error && 'text-destructive', className)}
+      className={cn(error !== undefined && 'text-destructive', className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -114,11 +116,11 @@ React.ComponentPropsWithoutRef<typeof Slot>
       ref={ref}
       id={formItemId}
       aria-describedby={
-        !error
+        error === undefined
           ? `${formDescriptionId}`
           : `${formDescriptionId} ${formMessageId}`
       }
-      aria-invalid={!!error}
+      aria-invalid={!(error === undefined)}
       {...props}
     />
   )
@@ -147,9 +149,9 @@ HTMLParagraphElement,
 React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message) : children
+  const body = error !== undefined ? String(error?.message) : children
 
-  if (!body) {
+  if (body === undefined) {
     return null
   }
 
