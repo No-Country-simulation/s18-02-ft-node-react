@@ -1,7 +1,7 @@
-import AuthForm from '@/components/auth-form'
+import LoginForm from '@/components/login-form'
 
 export default function LoginPage () {
   return (
-    <AuthForm />
+    <LoginForm />
   )
 }
