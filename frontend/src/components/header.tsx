@@ -8,9 +8,16 @@ import { Avatar, AvatarImage } from './ui/avatar'
 import { AvatarFallback } from '@radix-ui/react-avatar'
 
 export default function Header () {
+  const onBack = () => {
+    if (typeof window !== 'undefined') window.history.back()
+  }
+
   return (
     <header className='sticky top-0 flex justify-between items-center p-4 bg-[#F3F3F3]'>
-      <div className='flex items-center gap-x-2'>
+      <div
+        className='flex items-center gap-x-2 cursor-pointer'
+        onClick={onBack}
+      >
         <LeftArroowIcon className='size-8' />
         <h2 className='font-semibold'>Mi perfil</h2>
       </div>
