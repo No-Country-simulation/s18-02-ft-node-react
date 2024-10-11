@@ -2,7 +2,7 @@ import { Router } from "express";
 import { Request, Response, NextFunction } from "express";
 import { NotFoundError } from "../utils/errors/NotFoundError";
 import { errorHandler } from "../middlewares/errorHandler";
-import routerAuth from "./auth.routes";
+import routerAuth from "./Auth.routes";
 
 const router = Router();
 
