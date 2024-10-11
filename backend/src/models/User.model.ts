@@ -1,13 +1,8 @@
-import mongoose, {
-  Document,
-  PaginateModel,
-  PopulatedDoc,
-  Schema,
-  Types,
-} from "mongoose";
+import mongoose, { Document, PaginateModel, PopulatedDoc, Schema, Types } from "mongoose";
 import paginate from "mongoose-paginate-v2";
 
-type UserRole = "TEACHER" | "STUDENT";
+type UserRole = "teacher" | "student";
+type ClassMode = "remoto" | "presencial";
 
 export interface IUser extends Document {
   _id: Types.ObjectId;
@@ -19,10 +14,11 @@ export interface IUser extends Document {
   avatar: string;
   subjects: string[];
   description: string;
+  birthday: Date;
+  classPrice: number;
+  classMode: ClassMode;
   createdAt: Date;
   updatedAt: Date;
-  classes: PopulatedDoc<Types.ObjectId & Document>[];
-  schedules: PopulatedDoc<Types.ObjectId & Document>[];
 }
 
 const UserSchema = new Schema<IUser>(
@@ -52,7 +48,7 @@ const UserSchema = new Schema<IUser>(
     },
     role: {
       type: String,
-      enum: ["TEACHER", "STUDENT"],
+      enum: ["teacher", "student"],
       required: true,
     },
     avatar: {
@@ -68,20 +64,19 @@ const UserSchema = new Schema<IUser>(
       trim: true,
       maxlength: 500,
     },
-    classes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Class",
-        default: [],
-      },
-    ],
-    schedules: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Schedule",
-        default: [],
-      },
-    ],
+    birthday: {
+      type: Date,
+      default: null,
+    },
+    classPrice: {
+      type: Number,
+      default: null,
+    },
+    classMode: {
+      type: String,
+      enum: ["remoto", "presencial"],
+      default: "remoto",
+    },
   },
   {
     timestamps: true,
@@ -92,9 +87,6 @@ UserSchema.plugin(paginate);
 
 interface IUserModel<T extends Document> extends PaginateModel<T> {}
 
-const UserModel = mongoose.model<IUser>(
-  "User",
-  UserSchema
-) as IUserModel<IUser>;
+const UserModel = mongoose.model<IUser>("User", UserSchema) as IUserModel<IUser>;
 
 export default UserModel;
