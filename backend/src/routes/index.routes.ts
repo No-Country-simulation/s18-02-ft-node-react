@@ -7,7 +7,7 @@ import routerAuth from "./Auth.routes";
 const router = Router();
 
 //ACA VAN TODAS LAS RUTAS
-router.use("api/auth", routerAuth);
+router.use("/api/auth", routerAuth);
 
 //404
 router.use((req: Request, res: Response, next: NextFunction) => {

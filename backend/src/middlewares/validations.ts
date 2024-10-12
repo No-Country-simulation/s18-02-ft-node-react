@@ -7,6 +7,7 @@ import { InternalServerError } from "../utils/errors/InternalServerError";
 export const validateBody = (schema: ZodSchema) => async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await schema.parse(req.body);
+    if (result) return next();
   } catch (error) {
     if (error instanceof Error) {
       return next(error);
