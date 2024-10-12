@@ -82,7 +82,7 @@ export class AuthService {
       return {
         status: "success",
         payload: result,
-        message: "El usuario ha sido registrado.",
+        message: "El usuario ha iniciado sesión.",
         token: jwt,
       };
     } catch (error) {
