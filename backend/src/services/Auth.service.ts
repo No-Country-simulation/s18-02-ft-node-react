@@ -50,7 +50,7 @@ export class AuthService {
 
       const jwt = generateJWT({ id: newUser._id });
 
-      const { password, createdAt, updatedAt, _id, ...result } = newUser;
+      const { password, createdAt, updatedAt, _id, __v, ...result } = newUser.toObject();
 
       return {
         status: "success",
@@ -66,6 +66,7 @@ export class AuthService {
   async login(loginInfo: LoginType) {
     try {
       const user = await this.userRepository.findOneByEmail(loginInfo.email);
+      console.log(user);
 
       if (!user) {
         throw new AuthenticationError("El usuario no existe.");
@@ -77,7 +78,7 @@ export class AuthService {
       }
       const jwt = generateJWT({ id: user._id });
 
-      const { password, createdAt, updatedAt, _id, ...result } = user;
+      const { password, createdAt, updatedAt, _id, __v, ...result } = user.toObject();
 
       return {
         status: "success",
