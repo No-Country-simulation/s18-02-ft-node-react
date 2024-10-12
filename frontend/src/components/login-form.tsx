@@ -26,7 +26,7 @@ export default function LoginForm () {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='max-w-sm mx-auto space-y-8'
+        className='space-y-8 w-full'
       >
         <div>
           <h1 className='font-bold text-lg'>Iniciar sesión</h1>
@@ -43,11 +43,8 @@ export default function LoginForm () {
               <FormItem>
                 <FormLabel className='font-semibold'>E-mail</FormLabel>
                 <FormControl>
-                  <Input placeholder='your-email@gmail.com' {...field} />
+                  <Input placeholder='your-email@gmail.com' type='email' {...field} />
                 </FormControl>
-                <FormDescription>
-                  Escribe tu correo
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
