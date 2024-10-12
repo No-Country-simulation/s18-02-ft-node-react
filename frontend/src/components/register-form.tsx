@@ -12,6 +12,7 @@ import { type RegisterSchema, registerSchema } from '@/lib/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import api from '@/lib/api'
 
 export default function RegisterForm () {
   const [userRole, setUserRole] = useState<User['role']>('student')
@@ -28,6 +29,12 @@ export default function RegisterForm () {
 
   const onSubmit = (values: RegisterSchema) => {
     console.log(values, userRole)
+    api.register({
+      ...values,
+      role: userRole
+    }).then(res => {
+      console.log(res)
+    }).catch(console.error)
   }
 
   return (

@@ -8,6 +8,7 @@ import { Input } from './ui/input'
 import { Button, buttonVariants } from './ui/button'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import api from '@/lib/api'
 
 export default function LoginForm () {
   const form = useForm<LoginSchema>({
@@ -20,6 +21,12 @@ export default function LoginForm () {
 
   const onSubmit = (values: LoginSchema) => {
     console.log(values)
+    api.login(values).then(res => {
+      console.log(res)
+    }).catch(error => {
+      console.log('error: ', error.response.data)
+      form.setError('email', { message: error.response.data.payload })
+    })
   }
 
   return (
