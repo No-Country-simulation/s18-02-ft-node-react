@@ -43,7 +43,7 @@ export class UserRepository {
 
   async findOneByEmail(email: string | Types.ObjectId): Promise<IUser | null> {
     try {
-      return await this.userModel.findOne({ email }).select("-password");
+      return await this.userModel.findOne({ email });
     } catch (error) {
       throw error;
     }
