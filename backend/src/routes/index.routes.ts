@@ -3,11 +3,13 @@ import { Request, Response, NextFunction } from "express";
 import { NotFoundError } from "../utils/errors/NotFoundError";
 import { errorHandler } from "../middlewares/errorHandler";
 import routerAuth from "./Auth.routes";
+import routerSchedule from "./Schedule.routes";
 
 const router = Router();
 
 //ACA VAN TODAS LAS RUTAS
 router.use("/api/auth", routerAuth);
+router.use("/api/schedule", routerSchedule);
 
 //404
 router.use((req: Request, res: Response, next: NextFunction) => {
