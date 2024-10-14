@@ -4,15 +4,31 @@ interface Base {
   updatedAt: string
 }
 
-declare interface User extends Base {
+declare interface StudentUser extends Base {
   name: string
   username: string
   email: string
-  role: 'teacher' | 'student'
+  role: 'student'
   avatar?: string
   subjects?: string[]
   description?: string
+  birthday: string | null
 }
+
+declare interface TeacherUser extends Base {
+  name: string
+  username: string
+  email: string
+  role: 'teacher'
+  avatar?: string
+  subjects?: string[]
+  description?: string
+  birthday: string | null
+  classMode: 'remoto' | 'presencial'
+  classPrice: number | null
+}
+
+declare type User = StudentUser | TeacherUser
 
 declare interface Schedule extends Base {
   id: string
