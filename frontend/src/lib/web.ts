@@ -1,11 +1,15 @@
-function localStorageExist () {
-  return typeof localStorage !== 'undefined'
+function documentExist () {
+  return typeof window !== 'undefined'
 }
 
 export function setToken (token: string) {
-  if (localStorageExist()) localStorage.setItem('token', token)
+  if (documentExist()) document.cookie = `token=${token}; secure; samesite=strict`
 }
 
 export function getToken () {
-  if (localStorageExist()) return localStorage.getItem('token') ?? ''
+  if (documentExist()) {
+    return document.cookie.split(';')
+      .find(ck => ck.includes('token'))
+      ?.replace('token=', '')
+  }
 }
