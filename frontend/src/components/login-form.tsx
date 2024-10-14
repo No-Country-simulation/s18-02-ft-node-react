@@ -9,6 +9,9 @@ import { Button, buttonVariants } from './ui/button'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import api from '@/lib/api'
+import { useUserStore } from '@/stores/user'
+import { setToken } from '@/lib/web'
+import { useRouter } from 'next/navigation'
 
 export default function LoginForm () {
   const form = useForm<LoginSchema>({
@@ -18,11 +21,16 @@ export default function LoginForm () {
       password: ''
     }
   })
+  const setUser = useUserStore(store => store.setUser)
+  const router = useRouter()
 
   const onSubmit = (values: LoginSchema) => {
     console.log(values)
     api.login(values).then(res => {
-      console.log(res)
+      console.log(res.data)
+      setUser(res.data.payload)
+      setToken(res.data.token)
+      router.push('/')
     }).catch(error => {
       console.log('error: ', error.response.data)
       form.setError('email', { message: error.response.data.payload })
