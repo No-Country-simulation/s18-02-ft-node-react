@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { API_URL } from '@/lib/constants'
 import { type RegisterSchema, type LoginSchema } from './zod'
+import { getToken } from './web'
 
 axios.defaults.baseURL = API_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -8,10 +9,8 @@ axios.defaults.headers.patch['Content-Type'] = 'application/json'
 const secureApi = axios.create()
 
 secureApi.interceptors.request.use(config => {
-  if (typeof localStorage !== 'undefined') {
-    const token = localStorage.getItem('token')
-    config.headers.Authorization = `Bearer ${token}`
-  }
+  const token = getToken()
+  config.headers.Authorization = `Bearer ${token}`
   return config
 }, async error => {
   console.error(error)
@@ -20,7 +19,10 @@ secureApi.interceptors.request.use(config => {
 
 const api = {
   async login (credentials: LoginSchema) {
-    return axios.post('auth/login', credentials)
+    return axios.post<{
+      payload: User
+      token: string
+    }>('auth/login', credentials)
   },
   async register (user: RegisterSchema & { role: User['role'] }) {
     return axios.post('auth/register', { ...user, repassword: user.repeatedPassword })
