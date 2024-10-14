@@ -1,3 +1,4 @@
+import SubjectsList from './subjects-list'
 import { Badge } from './ui/badge'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
 
@@ -12,11 +13,7 @@ export default function PostCard ({ user }: { user: User }) {
         </div>
       </CardHeader>
       <CardContent className='space-y-2'>
-        {user.subjects !== undefined && <ul
-          className='flex gap-2'
-        >
-          {user.subjects.map(subject => <Badge key={subject} variant='outline'>{subject.toUpperCase()}</Badge>)}
-        </ul>}
+        {user.subjects !== undefined && <SubjectsList subjects={user.subjects}/>}
         {user.description !== undefined && <CardDescription>{user.description}</CardDescription>}
       </CardContent>
       <CardFooter className='flex justify-between'>
