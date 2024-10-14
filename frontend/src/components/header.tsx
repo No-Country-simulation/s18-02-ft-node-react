@@ -4,10 +4,12 @@ import LeftArroowIcon from '@/icons/left-arrow'
 import { Button } from './ui/button'
 import BellIcon from '@/icons/bell'
 import { Badge } from './ui/badge'
-import { Avatar, AvatarImage } from './ui/avatar'
-import { AvatarFallback } from '@radix-ui/react-avatar'
+import { useUserStore } from '@/stores/user'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { getNameInitials } from '@/lib/utils'
 
 export default function Header () {
+  const user = useUserStore(store => store.user)
   const onBack = () => {
     if (typeof window !== 'undefined') window.history.back()
   }
@@ -37,10 +39,11 @@ export default function Header () {
           </Badge>
         </Button>
 
-        <Avatar className='rounded-lg'>
-          <AvatarImage src='https://cdn.discordapp.com/attachments/1064289166462042139/1294011787653415073/image.png?ex=670975e3&is=67082463&hm=2086c291c17733af5e97620234e335d11d017de7f42d609df1b823505eccdaa9&' alt='user' />
-          <AvatarFallback>UN</AvatarFallback>
-        </Avatar>
+        {user !== undefined && <Avatar className='rounded-lg'>
+            <AvatarImage src={user.avatar} alt={`Avatar of ${user.username}`} />
+            <AvatarFallback className='w-full flex justify-center items-center bg-background rounded-lg'>{getNameInitials(user.name)}</AvatarFallback>
+          </Avatar>
+        }
       </div>
     </header>
   )
