@@ -34,7 +34,10 @@ export default function RegisterForm () {
       role: userRole
     }).then(res => {
       console.log(res)
-    }).catch(console.error)
+    }).catch(error => {
+      console.log(error)
+      form.setError('email', { message: error.response.data.payload })
+    })
   }
 
   return (
