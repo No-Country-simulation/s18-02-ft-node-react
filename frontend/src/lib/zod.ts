@@ -15,7 +15,8 @@ export const loginSchema = z.object({
 export type LoginSchema = z.infer<typeof loginSchema>
 
 const usernameRegex = /^[a-zA-Z0-9._]/
-export const registerSchema = loginSchema.extend({
+export const registerSchema = z.object({
+  ...loginSchema.shape,
   name: z.string()
     .min(8, 'El nombre debe contener al menos 8 caracteres')
     .max(40, 'El nombre debe de contener un maximo de 40.'),
@@ -24,9 +25,15 @@ export const registerSchema = loginSchema.extend({
     .max(16, 'El username no debe contener más de 16 caracteres ')
     .regex(usernameRegex, 'El username solo puede contener letras, números, guiones bajos y puntos'),
   repeatedPassword: z.string().min(8)
-}).refine(data => data.password === data.repeatedPassword, {
+})
+
+export const registerFormSchema = registerSchema.refine(data => data.password === data.repeatedPassword, {
   message: 'Las contraseñas no coinciden',
   path: ['repeatedPassword']
 })
 
 export type RegisterSchema = z.infer<typeof registerSchema>
+
+export const updateStudentSchema = z.object({
+
+})
