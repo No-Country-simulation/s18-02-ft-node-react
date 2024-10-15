@@ -29,7 +29,7 @@ const links = [
 
 export default function Navbar () {
   return (
-    <nav className='sticky bottom-0 flex py-3 px-4 justify-between bg-[#F3F3F3]'>
+    <nav className='sticky bottom-0 flex py-4 px-8 justify-between bg-[#F3F3F3]'>
       {links.map(link => <Link
         key={link.name}
         href={link.path}
