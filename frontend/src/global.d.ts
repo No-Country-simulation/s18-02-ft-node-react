@@ -4,26 +4,23 @@ interface Base {
   updatedAt: string
 }
 
-declare interface StudentUser extends Base {
+interface BaseUser extends Base {
   name: string
   username: string
   email: string
-  role: 'student'
+  role: 'student' | 'teacher'
   avatar?: string
-  subjects?: string[]
-  description?: string
   birthday: string | null
+  description?: string
 }
 
-declare interface TeacherUser extends Base {
-  name: string
-  username: string
-  email: string
+declare interface StudentUser extends BaseUser {
+  role: 'student'
+}
+
+declare interface TeacherUser extends BaseUser {
   role: 'teacher'
-  avatar?: string
   subjects?: string[]
-  description?: string
-  birthday: string | null
   classMode: 'remoto' | 'presencial'
   classPrice: number | null
 }
