@@ -10,10 +10,25 @@ export const TEACHERS: TeacherUser[] = [
     avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
     subjects: ['Matrmática', 'Química', 'Física'],
     description: 'Descripcion del profesor que tiene muchas materias. Para mostrar en la tarjeta',
-    createdAt: '024-10-12T23:12:40.843Z',
-    updatedAt: '024-10-12T23:12:40.843Z',
+    createdAt: '2024-10-12T23:12:40.843Z',
+    updatedAt: '2024-10-12T23:12:40.843Z',
     birthday: null,
     classMode: 'remoto',
+    classPrice: null
+  },
+  {
+    id: 'asd0-hjose3ola-23',
+    name: 'Jose Martin Moles',
+    email: 'mariaSosa@gmail.com',
+    username: 'jose2',
+    role: 'teacher',
+    avatar: 'https://randomuser.me/api/portraits/men/69.jpg',
+    subjects: ['Química'],
+    description: 'Descripcion del profesor que tiene muchas materias. Para mostrar en la tarjeta',
+    createdAt: '2024-10-16T23:08:09.684Z',
+    updatedAt: '2024-10-16T23:08:09.684Z',
+    birthday: null,
+    classMode: 'presencial',
     classPrice: null
   }
 ]
@@ -33,3 +48,12 @@ export const USERS: User[] = [
 ]
 
 export const SESSION_USER = USERS[0]
+
+export const COMMENTS = [
+  {
+    id: 'asd0-hol5a-23',
+    user: USERS[1],
+    content: '"People are so scared to lose that they don\'t even try. Like, one thing people can\'t say is that I\'m not trying, and I\'m not trying my hardest, and I\'m not trying to do the best way I know how."',
+    rating: 4
+  }
+]
