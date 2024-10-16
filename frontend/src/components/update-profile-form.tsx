@@ -1,31 +1,31 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { Form, FormDescription, FormField } from './ui/form'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './ui/form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { type UpdateProfileSchema, updateStudentSchema, updateTeacherSchema } from '@/lib/zod'
+import { Input } from './ui/input'
+import DatePicker from './date-picker'
+import { Button } from './ui/button'
 
-export default function UpdateProfileForm () {
-  const form = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
+export default function UpdateProfileForm ({ userProfile }: { userProfile: User }) {
+  const form = useForm<UpdateProfileSchema>({
+    resolver: zodResolver(userProfile.role === 'student' ? updateStudentSchema : updateTeacherSchema),
     defaultValues: {
-      email: '',
-      password: ''
+      name: '',
+      description: '',
+      ...(userProfile.role === 'student'
+        ? {}
+        : {
+            classMode: 'remoto',
+            classPrice: null,
+            subjects: []
+          })
     }
   })
-  const setUser = useUserStore(store => store.setUser)
-  const router = useRouter()
 
-  const onSubmit = (values: LoginSchema) => {
+  const onSubmit = (values: UpdateProfileSchema) => {
     console.log(values)
-    api.login(values).then(res => {
-      console.log(res.data)
-      setUser(res.data.payload)
-      setToken(res.data.token)
-      router.push('/')
-    }).catch(error => {
-      console.log('error: ', error.response.data)
-      form.setError('email', { message: error.response.data.payload })
-    })
   }
 
   return (
@@ -44,7 +44,7 @@ export default function UpdateProfileForm () {
         <fieldset className='space-y-4'>
           <FormField
             control={form.control}
-            name='email'
+            name='name'
             render={({ field }) => (
               <FormItem>
                 <FormLabel className='font-semibold'>E-mail</FormLabel>
@@ -55,33 +55,40 @@ export default function UpdateProfileForm () {
               </FormItem>
             )}
           />
+          <FormField disabled
+            name='email'
+            render={() => (
+              <FormItem>
+                <FormLabel className='font-semibold'>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder={userProfile.email} type='email' />
+                </FormControl>
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
-            name='password'
+            name='birthday'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='font-semibold'>Contraseña</FormLabel>
+                <FormLabel className='font-semibold'>Fecha de nacimiento</FormLabel>
                 <FormControl>
-                  <Input placeholder='your password' type='password' {...field} />
+                  <DatePicker />
                 </FormControl>
-                <FormDescription>
-                  <a href='#' className='underline hover:no-underline'>¿Olvidaste tu contraseña?</a>
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
         </fieldset>
 
-        <div className='space-y-4'>
+        <div className='flex gap-x-4'>
           <Button
             className='w-full'
-            type='submit'
-          >Iniciar Sesión</Button>
-          <Link
-            href='/register'
-            className={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
-          >Regístrate</Link>
+            variant='outline'
+          >Editar</Button>
+          <Button
+            className='w-full'
+          >Confirmar</Button>
         </div>
       </form>
     </Form>
