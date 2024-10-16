@@ -7,21 +7,31 @@ import { Badge } from './ui/badge'
 import { useUserStore } from '@/stores/user'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { getNameInitials } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
 
 export default function Header () {
+  const pathname = usePathname()
   const user = useUserStore(store => store.user)
+
   const onBack = () => {
     if (typeof window !== 'undefined') window.history.back()
   }
 
   return (
-    <header className='sticky top-0 flex justify-between items-center p-4 bg-[#F3F3F3]'>
+    <header className='sticky z-50 top-0 flex justify-between items-center p-4 bg-[#F3F3F3]'>
       <div
         className='flex items-center gap-x-2 cursor-pointer'
         onClick={onBack}
       >
-        <LeftArroowIcon className='size-8' />
-        <h2 className='font-semibold'>Mi perfil</h2>
+        {pathname === '/'
+          ? <>
+          <div className='size-10 rounded-full bg-muted-foreground'></div>
+          <h2 className='font-semibold'>Logo</h2>
+        </>
+          : <>
+          <LeftArroowIcon className='size-8' />
+          <h2 className='font-semibold'>Mi perfil</h2>
+        </>}
       </div>
 
       <div className='flex gap-x-4'>
@@ -39,9 +49,9 @@ export default function Header () {
           </Badge>
         </Button>
 
-        {user !== undefined && <Avatar className='rounded-lg'>
+        {user !== undefined && <Avatar>
             <AvatarImage src={user.avatar} alt={`Avatar of ${user.username}`} />
-            <AvatarFallback className='w-full flex justify-center items-center bg-background rounded-lg'>{getNameInitials(user.name)}</AvatarFallback>
+            <AvatarFallback className='w-full flex justify-center items-center bg-background'>{getNameInitials(user.name)}</AvatarFallback>
           </Avatar>
         }
       </div>
