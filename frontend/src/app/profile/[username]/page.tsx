@@ -6,6 +6,7 @@ import PencilIcon from '@/icons/pencil'
 import { SESSION_USER, USERS } from '@/lib/constants'
 import { getNameInitials } from '@/lib/utils'
 import { cookies } from 'next/headers'
+import UpdateProfileForm from '@/components/update-profile-form'
 
 export default function ProfilePage ({ params: { username } }: { params: { username: string } }) {
   const cookieStore = cookies()
@@ -36,7 +37,7 @@ export default function ProfilePage ({ params: { username } }: { params: { usern
       <div className='flex flex-col gap-y-2'>
         <h1 className='font-bold text-xl'>{user.name}</h1>
         <span className='text-neutral-500 text-sm'>@{user.username}</span>
-        {user.subjects !== undefined && <SubjectsList subjects={user.subjects}/>}
+        {user.role === 'teacher' && user.subjects !== undefined && <SubjectsList subjects={user.subjects}/>}
         {isTeacher && <RatingStars rating={3.2} />}
       </div>
     </section>
@@ -48,5 +49,6 @@ export default function ProfilePage ({ params: { username } }: { params: { usern
       <h2 className='font-bold text-sm mb-1'>Sobre mí</h2>
       <p className='text-neutral-500'>{user.description}</p>
     </section>
+    <UpdateProfileForm userProfile={user}/>
   </>
 }
