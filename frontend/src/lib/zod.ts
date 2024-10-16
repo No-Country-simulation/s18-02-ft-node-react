@@ -34,6 +34,18 @@ export const registerFormSchema = registerSchema.refine(data => data.password ==
 
 export type RegisterSchema = z.infer<typeof registerSchema>
 
-export const updateStudentSchema = z.object({
-
+export const updateStudentSchema = registerSchema.pick({ name: true }).extend({
+  description: z.string().max(100, 'La descripcion no debe contener más de 100 caracteres').optional(),
+  birthday: z.string().datetime('Formato de fecha incorrecto').optional()
 })
+
+export type UpdateStudentSchema = z.infer<typeof updateStudentSchema>
+
+export const updateTeacherSchema = updateStudentSchema.extend({
+  classMode: z.enum(['remoto', 'presencial']).optional(),
+  classPrice: z.number().min(0, 'El precio no puede ser negativo').optional(),
+  subjects: z.array(z.string()).optional()
+})
+
+export type UpdateTeacherSchema = z.infer<typeof updateTeacherSchema>
+export type UpdateProfileSchema = UpdateStudentSchema | UpdateTeacherSchema
