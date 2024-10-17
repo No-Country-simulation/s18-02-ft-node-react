@@ -27,7 +27,7 @@ export default function LoginForm () {
   const onSubmit = (values: LoginSchema) => {
     console.log(values)
     api.login(values).then(res => {
-      console.log(res.data)
+      // console.log(res.data)
       setUser(res.data.payload)
       setToken(res.data.token)
       router.push('/')

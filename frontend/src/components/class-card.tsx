@@ -16,7 +16,7 @@ export default function ClassCard ({ user }: { user: TeacherUser }) {
         {user.description !== undefined && <CardDescription>{user.description}</CardDescription>}
       </CardContent>
       <CardFooter className='flex justify-between'>
-        <span className='font-bold text-3xl'>$99/h</span>
+        <span className='font-bold text-2xl'>$99/h</span>
         <div className='flex gap-x-2'>
           <p>Disponible 04/07</p>
           <ClassModeBadge classMode={user.classMode}/>

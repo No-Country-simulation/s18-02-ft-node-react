@@ -76,3 +76,7 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.carouselItem {
+  width: calc(100dvw - 55px);
+}
