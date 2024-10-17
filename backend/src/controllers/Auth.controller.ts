@@ -88,11 +88,16 @@ export class AuthController {
         throw new AuthorizationError("No hay sesion activa.");
       }
 
-      const { password, _id, createdAt, updatedAt, ...result } = user;
+      const userPayload = {
+        name: user.name,
+        username: user.username,
+        avatar: user.avatar,
+        id: user._id,
+      };
 
       res.send({
         status: "success",
-        payload: result,
+        payload: userPayload,
       });
     } catch (error) {
       if (error instanceof Error) {
