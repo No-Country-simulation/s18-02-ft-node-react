@@ -5,8 +5,10 @@ import CommentCard from '@/components/comment-card'
 import { Faq } from '@/components/faq'
 import SearchBar from '@/components/search-bar'
 import Footer from '@/components/shared/footer'
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import api from '@/lib/api'
 import { COMMENTS, TEACHERS } from '@/lib/constants'
+import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 
 export default function Home () {
@@ -19,22 +21,16 @@ export default function Home () {
     }).catch(console.error)
   }, [])
 
-  return loged
-    ? (<>
-      <main className="">
-        {TEACHERS.map(teacher => <ClassCard key={teacher.id} user={teacher}/>)}
-      </main>
-    </>)
-    : (<>
+  return (<>
       <main>
-        <section className='p-5'>
+        {loged || <section className='p-5'>
           <h1 className='text-3xl font-bold'>Todas tus clases particulares en un solo lugar.</h1>
           <img src="/images/class.png" alt="class image" />
-        </section>
+        </section>}
 
         <SearchBar />
 
-        <section className='px-5 py-8 flex flex-col items-center gap-y-6'>
+        {loged || <section className='px-5 py-8 flex flex-col items-center gap-y-6'>
           <h2 className='text-2xl font-bold'>Como funciona</h2>
           <ul className='flex flex-col items-center gap-y-6'>
             <article>
@@ -59,23 +55,51 @@ export default function Home () {
               <h3 className='text-xl font-semibold text-center mt-8'>Agenda una clase</h3>
             </article>
           </ul>
-        </section>
+        </section>}
+
+        {loged && <section>
+          <h2 className='text-2xl font-bold'>Próximas clases</h2>
+        </section>}
 
         <section className='px-5 py-8 bg-secondary space-y-6'>
-          <h2 className='font-bold text-2xl text-center'>Clases recomendadas</h2>
-          <ol>
-            {TEACHERS.map(teacher => <ClassCard key={teacher.id} user={teacher}/>)}
-          </ol>
+          <h2 className={cn('font-bold text-2xl', loged ? '' : 'text-center')}>Clases recomendadas</h2>
+          <Carousel
+            opts={{
+              align: 'start'
+            }}
+          >
+            <CarouselContent className='gap-x-2 -ml-2'>
+              {TEACHERS.map(teacher => <CarouselItem
+                key={teacher.id}
+                className='carouselItem max-w-sm pl-2 basis-auto'
+              >
+                <ClassCard user={teacher}/>
+              </CarouselItem>)}
+            </CarouselContent>
+          </Carousel>
+
         </section>
 
-        <section className='px-5 py-8 space-y-6'>
+        {loged || <section className='px-5 py-8 space-y-6'>
           <h2 className='text-2xl font-bold text-center'>Preguntas freguntas</h2>
           <Faq />
-          <ol>
-            {COMMENTS.map(comment => <CommentCard key={comment.id} comment={comment}/>)}
-          </ol>
-        </section>
+          <Carousel
+            opts={{
+              align: 'start'
+            }}
+          >
+            <CarouselContent className='gap-x-2'>
+              {COMMENTS.map(comment => <CarouselItem
+                key={comment.id}
+                className='pl-2 basis-auto'
+              >
+                <CommentCard comment={comment}/>
+              </CarouselItem>)}
+            </CarouselContent>
+          </Carousel>
+        </section>}
       </main>
-      <Footer />
-    </>)
+      {loged || <Footer />}
+    </>
+  )
 }
