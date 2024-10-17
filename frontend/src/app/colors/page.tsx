@@ -1,10 +1,7 @@
-'use client'
-
 import config from '../../../tailwind.config'
 
 export default function ColorsPage () {
   const colors = config.theme?.extend?.colors
-  console.log(colors)
 
   return (
     <main className='p-5 flex gap-4 flex-wrap'>
