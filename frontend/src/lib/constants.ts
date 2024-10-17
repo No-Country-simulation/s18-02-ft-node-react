@@ -55,5 +55,11 @@ export const COMMENTS = [
     user: USERS[1],
     content: '"People are so scared to lose that they don\'t even try. Like, one thing people can\'t say is that I\'m not trying, and I\'m not trying my hardest, and I\'m not trying to do the best way I know how."',
     rating: 4
+  },
+  {
+    id: 'asd-jojo-a-23',
+    user: USERS[0],
+    content: 'Hola este es el contenido del comentario. Holdksodfw er sfdkn l-32.',
+    rating: 2
   }
 ]
