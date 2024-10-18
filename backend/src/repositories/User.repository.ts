@@ -5,13 +5,12 @@ import { RegisterType } from "../schemas/user.schemas";
 type OptionsType = {
   page: number;
   limit: number;
-  select?: string;
-  populate?: { path: string; select?: string }[];
+  select: string;
 };
 
 type Query = {
   subject?: string;
-  [key: string]: any;
+  name?: string;
 };
 
 export class UserRepository {
@@ -25,9 +24,9 @@ export class UserRepository {
     }
   }
 
-  async find(query: Query | {}, options: OptionsType) {
+  async find(filters: any | {}, options: OptionsType) {
     try {
-      return await this.userModel.paginate(query, options);
+      return await this.userModel.paginate(filters, options);
     } catch (error) {
       throw error;
     }
