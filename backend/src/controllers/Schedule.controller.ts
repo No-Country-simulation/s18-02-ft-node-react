@@ -9,10 +9,11 @@ export class ScheduleController {
 
   // Crear un nuevo Schedule
   create = async (req: Request, res: Response, next: NextFunction) => {
-    const data: CreateScheduleType = req.body;
+    const schedules: CreateScheduleType[] = req.body; // Espera una lista de horarios
 
     try {
-      const result = await this.scheduleService.create(data);
+      // Se usa Promise.all para crear todos los shedules de forma asincrona
+      const result = await Promise.all(schedules.map(schedule => this.scheduleService.create(schedule)));
       res.status(201).send(result);
     } catch (error) {
       if (error instanceof Error) {
@@ -77,7 +78,39 @@ export class ScheduleController {
         return next(new NotFoundError());
       }
 
-      res.status(204).send(); // Status 204 No Content
+      res.status(204).send();
+    } catch (error) {
+      if (error instanceof Error) {
+        return next(error);
+      }
+
+      return next(new InternalServerError());
+    }
+  };
+
+  // Obtener los Schedules por Id del profesor
+  getSchedulesByTeacher = async (req: Request, res: Response, next: NextFunction) => {
+    const { teacherId } = req.params;
+
+    try {
+      const schedules = await this.scheduleService.getByTeacherId(teacherId);
+      res.status(200).send(schedules);
+    } catch (error) {
+      if (error instanceof Error) {
+        return next(error);
+      }
+
+      return next(new InternalServerError());
+    }
+  }
+
+  // Obtener un Schedule por day
+  getSchedulesByDay = async (req: Request, res: Response, next: NextFunction) => {
+    const { day } = req.params;
+
+    try {
+      const result = await this.scheduleService.getSchedulesByDay(day);
+      res.status(200).send(result);
     } catch (error) {
       if (error instanceof Error) {
         return next(error);
