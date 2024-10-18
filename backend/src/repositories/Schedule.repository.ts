@@ -23,6 +23,10 @@ export class ScheduleRepository {
     }
   }
 
+  //findByDay
+
+  //findByTeacherId
+
   // Actualizar un schedule por ID
   async update(id: string | Types.ObjectId, data: UpdateScheduleType): Promise<ISchedule | null> {
     try {
