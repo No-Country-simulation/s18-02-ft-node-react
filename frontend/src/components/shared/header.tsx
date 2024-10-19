@@ -5,10 +5,9 @@ import { Button } from '../ui/button'
 import BellIcon from '@/icons/bell'
 import { Badge } from '../ui/badge'
 import { useUserStore } from '@/stores/user'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { getNameInitials } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 import { UserCircle } from 'lucide-react'
+import UserAvatar from './user-avatar'
 
 export default function Header () {
   const pathname = usePathname()
@@ -52,10 +51,7 @@ export default function Header () {
 
         {user === undefined
           ? <UserCircle className='size-10' />
-          : <Avatar>
-            <AvatarImage src={user.avatar} alt={`Avatar of ${user.username}`} />
-            <AvatarFallback className='w-full flex justify-center items-center bg-background'>{getNameInitials(user.name)}</AvatarFallback>
-          </Avatar>
+          : <UserAvatar user={user}/>
         }
       </div>
     </header>
