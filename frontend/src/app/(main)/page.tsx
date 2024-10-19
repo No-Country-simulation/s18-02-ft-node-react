@@ -15,6 +15,7 @@ import TrendingUpIcon from '@/icons/trending-up'
 import TrendingDownIcon from '@/icons/trending-down'
 import ClassChart from '@/components/class-chart'
 import RecommendedClasses from '@/components/shared/recommended-classes'
+import RecentTeacherCard from '@/components/recent-teacher-card'
 
 export const dynamic = 'force-dynamic'
 
