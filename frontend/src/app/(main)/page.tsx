@@ -1,6 +1,6 @@
 'use client'
 
-import ClassCard from '@/components/class-card'
+import TeacherCard from '@/components/teacher-card'
 import CommentCard from '@/components/comment-card'
 import { Faq } from '@/components/faq'
 import SearchBar from '@/components/search-bar'
@@ -73,7 +73,7 @@ export default function Home () {
                 key={teacher.id}
                 className='carouselItem max-w-sm pl-2 basis-auto'
               >
-                <ClassCard user={teacher}/>
+                <TeacherCard teacher={teacher}/>
               </CarouselItem>)}
             </CarouselContent>
           </Carousel>
