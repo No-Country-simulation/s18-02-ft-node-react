@@ -7,9 +7,12 @@ import SearchBar from '@/components/search-bar'
 import Footer from '@/components/shared/footer'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import api from '@/lib/api'
-import { COMMENTS, TEACHERS } from '@/lib/constants'
+import { COMMENTS, NEXT_CLASSES, TEACHERS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
+import ClassCard from '@/components/class-card'
+import { Button } from '@/components/ui/button'
+import RecentTeacherCard from '@/components/recent-teacher-card'
 
 export default function Home () {
   const [loged, setLoged] = useState(false)
@@ -57,11 +60,25 @@ export default function Home () {
           </ul>
         </section>}
 
-        {loged && <section>
+        {loged && <section className='px-5 py-8'>
           <h2 className='text-2xl font-bold'>Próximas clases</h2>
+          <Carousel
+            opts={{
+              align: 'start'
+            }}
+          >
+            <CarouselContent className='gap-x-2 -ml-2'>
+              {NEXT_CLASSES.map(nextClass => <CarouselItem
+                key={nextClass.id}
+                className='carouselItem max-w-sm pl-2 basis-auto'
+              >
+                <ClassCard nextClass={nextClass}/>
+              </CarouselItem>)}
+            </CarouselContent>
+          </Carousel>
         </section>}
 
-        <section className='px-5 py-8 bg-secondary space-y-6'>
+        <section className={cn('px-5 py-8 bg-secondary space-y-6', loged ? 'pb-0' : '')}>
           <h2 className={cn('font-bold text-2xl', loged ? '' : 'text-center')}>Clases recomendadas</h2>
           <Carousel
             opts={{
@@ -77,8 +94,20 @@ export default function Home () {
               </CarouselItem>)}
             </CarouselContent>
           </Carousel>
-
+          {loged && <Button className='w-full'>Reserver una clase</Button>}
         </section>
+
+        {loged && <section className='px-5 py-8 bg-secondary space-y-6'>
+          <h2 className='text-2xl font-bold'>Mis profesores recientes</h2>
+          <ul className='space-y-2'>
+            <li>
+              <RecentTeacherCard />
+            </li>
+            <li>
+              <RecentTeacherCard />
+            </li>
+          </ul>
+        </section>}
 
         {loged || <section className='px-5 py-8 space-y-6'>
           <h2 className='text-2xl font-bold text-center'>Preguntas freguntas</h2>
