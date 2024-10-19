@@ -23,6 +23,15 @@ declare interface TeacherUser extends BaseUser {
   subjects?: string[]
   classMode: 'remoto' | 'presencial'
   classPrice: number | null
+  schedulePreferences?: {
+    monday: string[]
+    tuesday: string[]
+    wednesday: string[]
+    thursday: string[]
+    friday: string[]
+    saturday: string[]
+    sunday: string[]
+  }
 }
 
 declare type User = StudentUser | TeacherUser
