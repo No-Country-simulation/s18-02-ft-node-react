@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function NotFound () {
   return (
-    <main className='p-4 max-w-md mx-auto'>
+    <main className='p-5 max-w-md mx-auto'>
       <section>
         <EmojiSadIcon className='mx-auto' />
         <h1 className='text-8xl font-bold text-center mt-8'>404</h1>
