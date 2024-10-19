@@ -31,18 +31,9 @@ export default function Navbar () {
     }
   ]
 
-  if (isTeacher) {
-    links.splice(1, 0, {
-      path: '/',
-      name: 'Agenda',
-      icon: CalendarIcon
-    })
-  }
-
-  console.log(links, sessionUser)
-
+export default function Navbar () {
   return (
-    <nav className='sticky bottom-0 flex py-4 px-8 justify-between bg-secondary'>
+    <nav className='sticky bottom-0 flex py-4 px-8 justify-between bg-[#F3F3F3]'>
       {links.map(link => <Link
         key={link.name}
         href={link.path}
@@ -56,5 +47,5 @@ export default function Navbar () {
         </span>
       </Link>)}
     </nav>
-  )
+      )
 }
