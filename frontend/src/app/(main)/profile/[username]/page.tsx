@@ -1,3 +1,5 @@
+'use client'
+
 import ClassModeBadge from '@/components/shared/class-mode-badge'
 import SubjectsList from '@/components/subjects-list'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
