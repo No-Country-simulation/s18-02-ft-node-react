@@ -4,14 +4,14 @@ import LeftArroowIcon from '@/icons/left-arrow'
 import { Button } from '../ui/button'
 import BellIcon from '@/icons/bell'
 import { Badge } from '../ui/badge'
-import { useUserStore } from '@/stores/user'
+import { useSessionStore } from '@/stores/session'
 import { usePathname } from 'next/navigation'
 import { UserCircle } from 'lucide-react'
 import UserAvatar from './user-avatar'
 
 export default function Header () {
   const pathname = usePathname()
-  const user = useUserStore(store => store.user)
+  const sessionUser = useSessionStore(store => store.user)
 
   const onBack = () => {
     if (typeof window !== 'undefined') window.history.back()
@@ -49,9 +49,9 @@ export default function Header () {
           </Badge>
         </Button>
 
-        {user === undefined
+        {sessionUser === undefined
           ? <UserCircle className='size-10' />
-          : <UserAvatar user={user}/>
+          : <UserAvatar user={sessionUser}/>
         }
       </div>
     </header>
