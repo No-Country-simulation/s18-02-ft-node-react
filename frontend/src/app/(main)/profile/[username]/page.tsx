@@ -1,3 +1,5 @@
+'use client'
+
 import ClassModeBadge from '@/components/shared/class-mode-badge'
 <<<<<<< HEAD
 import SubjectsList from '@/components/subjects-list'
@@ -72,17 +74,26 @@ import RatingStars from '@/components/rating-stars'
 import SubjectsList from '@/components/subjects-list'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import PencilIcon from '@/icons/pencil'
-import { SESSION_USER, USERS } from '@/lib/constants'
+import { USERS } from '@/lib/constants'
 import { getNameInitials } from '@/lib/utils'
-import { cookies } from 'next/headers'
 import UpdateProfileForm from '@/components/update-profile-form'
+import { notFound, useRouter } from 'next/navigation'
+import { useSessionStore } from '@/stores/session'
+import ProfileInfo from '@/components/profile/profile-info'
 
 export default function ProfilePage ({ params: { username } }: { params: { username: string } }) {
-  const cookieStore = cookies()
-  console.log(username, cookieStore.get('token'))
+  // const cookieStore = cookies()
+  // console.log(username, cookieStore.get('token'))
   // fetch session user in the server with cookie
-  const sessionUser = SESSION_USER
+  const sessionUser = useSessionStore(store => store.user)
   const user = USERS.find(user => user.username === username)
+  const router = useRouter()
+
+  if (sessionUser === undefined) {
+    router.push('/login')
+    return null
+  }
+
   const isMyProfile = sessionUser.id === user?.id
   const isTeacher = user?.role === 'teacher'
 
@@ -120,5 +131,4 @@ export default function ProfilePage ({ params: { username } }: { params: { usern
     </section>
     <UpdateProfileForm userProfile={user}/>
   </>
->>>>>>> 6730f22 (Add main route group)
 }
