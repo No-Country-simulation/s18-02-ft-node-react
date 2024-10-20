@@ -49,7 +49,12 @@ export const USERS: User[] = [
   ...TEACHERS
 ]
 
-export const SESSION_USER = USERS[0]
+export const SESSION_USER: SessionUser = {
+  id: 'asd0-23',
+  name: 'David Garcia',
+  avatar: 'gacub20ru@gmail.com',
+  username: 'dagamdev'
+}
 
 export const COMMENTS = [
   {

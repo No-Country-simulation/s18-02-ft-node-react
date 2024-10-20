@@ -1,15 +1,19 @@
+declare interface SessionUser {
+  id: string
+  name: string
+  avatar?: string
+  username: string
+}
+
 interface Base {
   id: string
   createdAt: string
   updatedAt: string
 }
 
-interface BaseUser extends Base {
-  name: string
-  username: string
+interface BaseUser extends SessionUser, Base {
   email: string
   role: 'student' | 'teacher'
-  avatar?: string
   birthday: string | null
   description?: string
 }

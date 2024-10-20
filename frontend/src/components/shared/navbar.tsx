@@ -5,7 +5,7 @@ import HomeIcon from '@/icons/home'
 import CalendarIcon from '@/icons/calendar'
 import AcademicCapIcon from '@/icons/academic-cap'
 import PencilAltIcon from '@/icons/pencil-alt'
-import { useUserStore } from '@/stores/user'
+import { useSessionStore } from '@/stores/session'
 
 const links = [
   {
@@ -31,9 +31,9 @@ const links = [
 ]
 
 export default function Navbar () {
-  const user = useUserStore(store => store.user)
+  const sessionUser = useSessionStore(store => store.user)
 
-  return user === undefined
+  return sessionUser === undefined
     ? null
     : (
     <nav className='sticky bottom-0 flex py-4 px-8 justify-between bg-secondary'>

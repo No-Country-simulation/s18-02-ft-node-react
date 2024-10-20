@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { getNameInitials } from '@/lib/utils'
 
-export default function UserAvatar ({ user }: { user: User }) {
+export default function UserAvatar ({ user }: { user: SessionUser | User }) {
   return (
     <Avatar>
       <AvatarImage src={user.avatar} alt={`Avatar of ${user.username}`} />
