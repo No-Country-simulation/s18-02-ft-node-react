@@ -14,6 +14,8 @@ interface Base {
 
 interface BaseUser extends SessionUser, Base {
   email: string
+  role: 'student' | 'teacher'
+  avatar?: string
   birthday: string | null
   description?: string
 }
