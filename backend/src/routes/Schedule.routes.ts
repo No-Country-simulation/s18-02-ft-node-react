@@ -18,6 +18,12 @@ routerSchedule.post("/", authPassport, validateBody(CreateScheduleSchema), sched
 // Obtener un Schedule por ID
 routerSchedule.get("/:id", authPassport, scheduleController.getById);
 
+// Obtener los Schedules por ID del profesor
+routerSchedule.get("/calendar/:id", authPassport, scheduleController.getSchedulesByTeacher);
+
+// obtener un Schedule por dia
+routerSchedule.get("/day/schedule/:id", authPassport, scheduleController.getSchedulesByDay);
+
 // Actualizar un Schedule por ID
 routerSchedule.put("/:id", authPassport, validateBody(UpdateScheduleSchema), scheduleController.update);
 
