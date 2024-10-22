@@ -1,21 +1,14 @@
-import mongoose, {
-  Document,
-  PaginateModel,
-  Schema,
-  Types,
-} from "mongoose";
+import mongoose, { Document, PaginateModel, Schema, Types } from "mongoose";
 import paginate from "mongoose-paginate-v2";
 
 export interface IClass extends Document {
   _id: Types.ObjectId;
   teacherId: Types.ObjectId;
-  scheduleId: Types.ObjectId;
   studentId: Types.ObjectId;
-  startTime: Date;
+  date: Date;
   endTime: Date;
   subject: String;
   isPaid: Boolean;
-  isCompleted: Boolean;
   status: String;
 }
 
@@ -25,19 +18,15 @@ const ClassSchema = new Schema<IClass>(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
-    scheduleId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
     studentId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
-    startTime: {
-      type: Date,
+    subject: {
+      type: String,
       required: true,
     },
-    endTime: {
+    date: {
       type: Date,
       required: true,
     },
@@ -46,15 +35,10 @@ const ClassSchema = new Schema<IClass>(
       default: false,
       required: true,
     },
-    isCompleted: {
-      type: Boolean,
-      default: false,
-      required: true,
-    },
     status: {
       type: String,
       default: "pending",
-      enum: ["pending", "accepted"],
+      enum: ["pending", "accepted", "cancelled"],
       required: true,
     },
   },
@@ -65,11 +49,8 @@ const ClassSchema = new Schema<IClass>(
 
 ClassSchema.plugin(paginate);
 
-interface IClassModel<T extends Document> extends PaginateModel<T> { }
+interface IClassModel<T extends Document> extends PaginateModel<T> {}
 
-const ClassModel = mongoose.model<IClass>(
-  "Class",
-  ClassSchema
-) as IClassModel<IClass>;
+const ClassModel = mongoose.model<IClass>("Class", ClassSchema) as IClassModel<IClass>;
 
 export default ClassModel;
