@@ -5,20 +5,20 @@ import { UserUpdateSchema, PreferencesUpdateSchema } from "../schemas/user.schem
 import { UserController } from "../controllers/User.controller";
 import { UserService } from "../services/User.service";
 import { UserRepository } from "../repositories/User.repository";
-import { ScheduleRepository } from "../repositories/Schedule.repository";
+import { ClassRepository } from "../repositories/Class.repository";
 
 const routerUser = Router();
 
 const userRepository = new UserRepository();
-const scheduleRepository = new ScheduleRepository();
-const userService = new UserService(userRepository);
+const classRepository = new ClassRepository();
+const userService = new UserService(userRepository, classRepository);
 const userController = new UserController(userService);
 
 routerUser.get("/", userController.users);
 routerUser.get("/my-profile", authPassport, userController.myProfile);
 routerUser.get("/user-profile", userController.userProfile);
 
-routerUser.put("/profile", validateBody(UserUpdateSchema), userController.updateProfile);
+routerUser.put("/profile", validateBody(UserUpdateSchema), authPassport, userController.updateProfile);
 routerUser.put("/preferences", authPassport, authRole("teacher"), validateBody(PreferencesUpdateSchema), userController.updatePreferences);
 
 export default routerUser;

@@ -93,6 +93,7 @@ export class AuthController {
         username: user.username,
         avatar: user.avatar,
         id: user._id,
+        role: user.role,
       };
 
       res.send({

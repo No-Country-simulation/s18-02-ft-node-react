@@ -156,3 +156,4 @@ export const PreferencesUpdateSchema = z.object({
 });
 
 export type PreferencesUpdateType = z.infer<typeof PreferencesUpdateSchema>;
+export type TimeSlot = z.infer<typeof TimeSlots>;

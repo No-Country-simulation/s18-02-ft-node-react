@@ -1,5 +1,7 @@
-import mongoose, { Document, PaginateModel, Schema, Types } from "mongoose";
+import mongoose, { Document, PaginateModel, Schema, Types, PopulatedDoc } from "mongoose";
 import paginate from "mongoose-paginate-v2";
+import { TimeSlot } from "../schemas/user.schemas";
+import { IClass } from "./Class.model";
 
 type UserRole = "teacher" | "student";
 type ClassMode = "remoto" | "presencial";
@@ -42,19 +44,19 @@ export interface IUser extends Document {
   subjects: string[];
   description: string;
   birthday: Date;
-  classPrice: number;
+  classPrice: number | null;
   classMode: ClassMode;
   createdAt: Date;
   updatedAt: Date;
-  classes: Types.ObjectId[];
+  classes: PopulatedDoc<IClass>[];
   schedulePreferences: {
-    monday: string[];
-    tuesday: string[];
-    wednesday: string[];
-    thursday: string[];
-    friday: string[];
-    saturday: string[];
-    sunday: string[];
+    monday: TimeSlot[];
+    tuesday: TimeSlot[];
+    wednesday: TimeSlot[];
+    thursday: TimeSlot[];
+    friday: TimeSlot[];
+    saturday: TimeSlot[];
+    sunday: TimeSlot[];
   };
 }
 
