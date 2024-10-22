@@ -55,6 +55,7 @@ export class AuthService {
         username: newUser.username,
         avatar: newUser.avatar,
         id: newUser._id,
+        role: newUser.role,
       };
 
       return {
@@ -88,6 +89,7 @@ export class AuthService {
         username: user.username,
         avatar: user.avatar,
         id: user._id,
+        role: user.role,
       };
 
       return {
