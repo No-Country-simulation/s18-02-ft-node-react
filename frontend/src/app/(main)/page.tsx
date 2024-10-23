@@ -15,6 +15,7 @@ import { Badge } from '@/components/ui/badge'
 import TrendingUpIcon from '@/icons/trending-up'
 import TrendingDownIcon from '@/icons/trending-down'
 import ClassChart from '@/components/class-chart'
+import RecentTeacherCard from '@/components/recent-teacher-card'
 
 export default async function Home () {
   let sessionUser: SessionUser | undefined
