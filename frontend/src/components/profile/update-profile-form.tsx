@@ -1,12 +1,12 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './ui/form'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { type UpdateProfileSchema, updateStudentSchema, updateTeacherSchema } from '@/lib/zod'
-import { Input } from './ui/input'
-import DatePicker from './date-picker'
-import { Button } from './ui/button'
+import { Input } from '../ui/input'
+import DatePicker from '../date-picker'
+import { Button } from '../ui/button'
 
 export default function UpdateProfileForm ({ user }: { user: User }) {
   const form = useForm<UpdateProfileSchema>({
