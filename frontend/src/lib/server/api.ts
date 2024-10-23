@@ -10,7 +10,7 @@ export const authInstance = axios.create()
 
 authInstance.interceptors.request.use(config => {
   const token = getTokenFromServer()
-  
+
   if (token !== undefined) config.headers.Authorization = `Bearer ${token}`
 
   return config
