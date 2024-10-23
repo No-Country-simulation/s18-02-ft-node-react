@@ -7,35 +7,41 @@ import AcademicCapIcon from '@/icons/academic-cap'
 import PencilAltIcon from '@/icons/pencil-alt'
 import { useSessionStore } from '@/stores/session'
 
-const links = [
-  {
-    path: '/',
-    name: 'Inicio',
-    icon: HomeIcon
-  },
-  {
-    path: '/',
-    name: 'Agenda',
-    icon: CalendarIcon
-  },
-  {
-    path: '/',
-    name: 'Profesores',
-    icon: AcademicCapIcon
-  },
-  {
-    path: '/',
-    name: 'Alumnos',
-    icon: PencilAltIcon
-  }
-]
-
 export default function Navbar () {
   const sessionUser = useSessionStore(store => store.user)
 
-  return sessionUser === undefined
-    ? null
-    : (
+  if (sessionUser === undefined) return null
+
+  const isTeacher = sessionUser.role === 'teacher'
+  const links = [
+    {
+      path: '/',
+      name: 'Inicio',
+      icon: HomeIcon
+    },
+    {
+      path: '/' + (isTeacher ? 'students' : 'teachers'),
+      name: isTeacher ? 'Alumnos' : 'Profesores',
+      icon: AcademicCapIcon
+    },
+    {
+      path: '/classes',
+      name: 'Clases',
+      icon: PencilAltIcon
+    }
+  ]
+
+  if (isTeacher) {
+    links.splice(1, 0, {
+      path: '/',
+      name: 'Agenda',
+      icon: CalendarIcon
+    })
+  }
+
+  console.log(links, sessionUser)
+
+  return (
     <nav className='sticky bottom-0 flex py-4 px-8 justify-between bg-secondary'>
       {links.map(link => <Link
         key={link.name}
@@ -50,5 +56,5 @@ export default function Navbar () {
         </span>
       </Link>)}
     </nav>
-      )
+  )
 }
