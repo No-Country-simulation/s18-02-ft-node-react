@@ -1,6 +1,7 @@
 declare interface SessionUser {
   id: string
   name: string
+  role: 'student' | 'teacher'
   avatar?: string
   username: string
 }
@@ -13,7 +14,6 @@ interface Base {
 
 interface BaseUser extends SessionUser, Base {
   email: string
-  role: 'student' | 'teacher'
   birthday: string | null
   description?: string
 }
