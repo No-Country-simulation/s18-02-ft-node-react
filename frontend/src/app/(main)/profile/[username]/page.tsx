@@ -1,38 +1,33 @@
-'use client'
-
 import ClassModeBadge from '@/components/shared/class-mode-badge'
 import SubjectsList from '@/components/subjects-list'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import PencilIcon from '@/icons/pencil'
 import { USERS } from '@/lib/constants'
 import { getNameInitials } from '@/lib/utils'
-import UpdateProfileForm from '@/components/update-profile-form'
-import { notFound, useRouter } from 'next/navigation'
-import { useSessionStore } from '@/stores/session'
+import UpdateProfileForm from '@/components/profile/update-profile-form'
 import ProfileInfo from '@/components/profile/profile-info'
+import api from '@/lib/server/api'
+import { notFound } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import RatingStars from '@/components/rating-stars'
 
-export default function ProfilePage ({ params: { username } }: { params: { username: string } }) {
-  // const cookieStore = cookies()
-  // console.log(username, cookieStore.get('token'))
-  // fetch session user in the server with cookie
-  const sessionUser = useSessionStore(store => store.user)
+export default async function ProfilePage ({ params: { username } }: { params: { username: string } }) {
+  console.log(username)
+  const currentRes = await api.current()
+  const sessionUser = currentRes.payload
+  console.log('Session user: ', sessionUser)
   const user = USERS.find(user => user.username === username)
-  const router = useRouter()
-
-  if (sessionUser === undefined) {
-    router.push('/login')
-    return null
-  }
-
-  const isMyProfile = sessionUser.id === user?.id
-  const isTeacher = user?.role === 'teacher'
 
   if (user === undefined) {
     notFound()
   }
 
+  const isMyProfile = user.id === sessionUser.id
+  const isTeacher = user.role === 'teacher'
+
   return (
-    <>
+    <main className='flex-1'>
+      hola
       <section className='flex gap-x-6'>
         <div className='relative'>
           <Avatar className='size-[110px]'>
@@ -49,7 +44,7 @@ export default function ProfilePage ({ params: { username } }: { params: { usern
           <h1 className='font-bold text-xl'>{user.name}</h1>
           <span className='block text-muted-foreground text-sm mb-2'>@{user.username}</span>
           {user.role === 'teacher' && user.subjects !== undefined && <SubjectsList subjects={user.subjects}/>}
-          {/* {isTeacher && <RatingStars rating={3.2} />} */}
+          {isTeacher && <RatingStars rating={3.2} />}
         </div>
       </section>
 
@@ -58,7 +53,17 @@ export default function ProfilePage ({ params: { username } }: { params: { usern
         <ClassModeBadge classMode={user.classMode}/>
       </section>}
 
-      {isMyProfile ? <UpdateProfileForm user={user}/> : <ProfileInfo user={user} />}
-    </>
+      {/* {isMyProfile ? <UpdateProfileForm user={user}/> : <ProfileInfo user={user} />} */}
+
+      {(user.role === 'teacher' && sessionUser.id !== user.id) && <section
+        className='flex gap-x-4'
+      >
+        <Button
+          variant='outline'
+          className='w-full'
+        >Añadir a Mis profesores</Button>
+        <Button className='w-full'>Reserva una clase</Button>
+      </section>}
+    </main>
   )
 }
