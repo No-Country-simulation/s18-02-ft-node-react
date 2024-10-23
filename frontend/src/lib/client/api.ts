@@ -1,14 +1,10 @@
 import axios from 'axios'
-import { API_URL } from '@/lib/constants'
 import { getTokenFromClient } from '.'
 import { createApiMethods } from '../axios'
 
-axios.defaults.baseURL = API_URL
-axios.defaults.headers.post['Content-Type'] = 'application/json'
-axios.defaults.headers.patch['Content-Type'] = 'application/json'
 export const authInstance = axios.create()
 
-authInstance.interceptors.request.use(config => {
+axios.interceptors.request.use(config => {
   const token = getTokenFromClient()
 
   if (token !== undefined) config.headers.Authorization = `Bearer ${token}`
@@ -19,7 +15,7 @@ authInstance.interceptors.request.use(config => {
   return error.response.data
 })
 
-authInstance.interceptors.response.use(response => {
+axios.interceptors.response.use(response => {
   console.log('Response interceptor: ', response)
   return response.data
 }, async error => {
@@ -27,6 +23,6 @@ authInstance.interceptors.response.use(response => {
   return Promise.reject(error)
 })
 
-const api = createApiMethods(axios, authInstance)
+const api = createApiMethods(authInstance)
 
 export default api

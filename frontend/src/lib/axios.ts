@@ -1,23 +1,32 @@
-import { type AxiosInstance } from 'axios'
+import axios, { type AxiosInstance } from 'axios'
 import type { LoginSchema, RegisterSchema } from './zod'
+import { API_URL } from './constants'
 
-interface SessionUserResponse {
-  payload: SessionUser
+axios.defaults.baseURL = API_URL
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+axios.defaults.headers.patch['Content-Type'] = 'application/json'
+
+interface BaseResponse<T> {
+  payload: T
   status: string
 }
 
-export function createApiMethods (baseInstance: AxiosInstance, authInstance: AxiosInstance) {
+interface LoginResponse extends BaseResponse<SessionUser> {
+  token: string
+}
+
+export function createApiMethods (authInstance: AxiosInstance) {
   return {
-    async login (credentials: LoginSchema): Promise<SessionUserResponse> {
-      return await baseInstance.post('auth/login', credentials)
+    async login (credentials: LoginSchema): Promise<LoginResponse> {
+      return await axios.post('auth/login', credentials)
     },
     async register (user: RegisterSchema & { role: User['role'] }) {
-      return baseInstance.post('auth/register', { ...user, repassword: user.repeatedPassword })
+      return axios.post('auth/register', { ...user, repassword: user.repeatedPassword })
     },
     async confirmEmail (token: string) {
-      return baseInstance.post(`auth/confirm-email/${token}`)
+      return axios.post(`auth/confirm-email/${token}`)
     },
-    async current (): Promise<SessionUserResponse> {
+    async current (): Promise<BaseResponse<SessionUser>> {
       return authInstance.get('auth/current')
     }
   }
