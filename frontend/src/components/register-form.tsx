@@ -12,7 +12,11 @@ import { type RegisterSchema, registerSchema } from '@/lib/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+<<<<<<< HEAD
 import api from '@/lib/api-client'
+=======
+import api from '@/lib/client/api'
+>>>>>>> dev
 
 export default function RegisterForm () {
   const [userRole, setUserRole] = useState<User['role']>('student')

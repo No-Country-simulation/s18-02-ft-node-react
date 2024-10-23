@@ -50,11 +50,17 @@ export class AuthService {
 
       const jwt = generateJWT({ id: newUser._id });
 
-      const { password, createdAt, updatedAt, _id, __v, ...result } = newUser.toObject();
+      const userPayload = {
+        name: newUser.name,
+        username: newUser.username,
+        avatar: newUser.avatar,
+        id: newUser._id,
+        role: newUser.role,
+      };
 
       return {
         status: "success",
-        payload: result,
+        payload: userPayload,
         message: "El usuario ha sido registrado.",
         token: jwt,
       };
@@ -78,11 +84,17 @@ export class AuthService {
       }
       const jwt = generateJWT({ id: user._id });
 
-      const { password, createdAt, updatedAt, _id, __v, ...result } = user.toObject();
+      const userPayload = {
+        name: user.name,
+        username: user.username,
+        avatar: user.avatar,
+        id: user._id,
+        role: user.role,
+      };
 
       return {
         status: "success",
-        payload: result,
+        payload: userPayload,
         message: "El usuario ha iniciado sesión.",
         token: jwt,
       };
