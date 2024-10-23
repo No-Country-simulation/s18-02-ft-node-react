@@ -8,6 +8,7 @@ import { useSessionStore } from '@/stores/session'
 import { usePathname } from 'next/navigation'
 import { UserCircle } from 'lucide-react'
 import UserAvatar from './user-avatar'
+import Link from 'next/link'
 
 export default function Header () {
   const pathname = usePathname()
@@ -50,8 +51,12 @@ export default function Header () {
         </Button>
 
         {sessionUser === undefined
-          ? <UserCircle className='size-10' />
-          : <UserAvatar user={sessionUser}/>
+          ? <Link href='/login'>
+            <UserCircle className='size-10' />
+          </Link>
+          : <Link href={`/profile/${sessionUser.username}`}>
+            <UserAvatar user={sessionUser} />
+          </Link>
         }
       </div>
     </header>
