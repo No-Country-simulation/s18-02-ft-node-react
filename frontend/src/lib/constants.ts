@@ -10,7 +10,7 @@ export const TEACHERS: TeacherUser[] = [
     username: 'MarS',
     role: 'teacher',
     avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
-    subjects: ['Matrmática', 'Química', 'Física'],
+    subjects: ['Matemática', 'Química', 'Física'],
     description: 'Descripcion del profesor que tiene muchas materias. Para mostrar en la tarjeta',
     createdAt: '2024-10-12T23:12:40.843Z',
     updatedAt: '2024-10-12T23:12:40.843Z',
@@ -53,7 +53,8 @@ export const SESSION_USER: SessionUser = {
   id: 'asd0-23',
   name: 'David Garcia',
   avatar: 'gacub20ru@gmail.com',
-  username: 'dagamdev'
+  username: 'dagamdev',
+  role: 'student'
 }
 
 export const COMMENTS = [

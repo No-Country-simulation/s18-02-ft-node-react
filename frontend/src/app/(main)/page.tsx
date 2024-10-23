@@ -1,5 +1,3 @@
-'use client'
-
 import TeacherCard from '@/components/teacher-card'
 import CommentCard from '@/components/comment-card'
 import { Faq } from '@/components/faq'
@@ -11,10 +9,12 @@ import { cn } from '@/lib/utils'
 import ClassCard from '@/components/class-card'
 import { Button } from '@/components/ui/button'
 import RecentTeacherCard from '@/components/recent-teacher-card'
-import { useSessionStore } from '@/stores/session'
+import api from '@/lib/server/api'
 
-export default function Home () {
-  const loged = useSessionStore(store => store.user !== undefined)
+export default async function Home () {
+  const currentRes = await api.current()
+  console.log('Home ', currentRes)
+  const loged = currentRes.status === 'success'
 
   return (<>
       <main>

@@ -17,7 +17,8 @@ export default async function ProfilePage ({ params: { username } }: { params: {
   const currentRes = await api.current()
   const sessionUser = currentRes.payload
   console.log('Session user: ', sessionUser)
-  const user = USERS.find(user => user.username === username)
+  const userRes = await (username === sessionUser.username ? api.getMyProfile() : api.getProfile(username))
+  console.log('profile: ', userRes)
 
   if (user === undefined) {
     notFound()
@@ -26,9 +27,10 @@ export default async function ProfilePage ({ params: { username } }: { params: {
   const isMyProfile = user.id === sessionUser.id
   const isTeacher = user.role === 'teacher'
 
+  console.log(user)
+
   return (
-    <main className='flex-1'>
-      hola
+    <main className='flex-1 py-6 px-5 space-y-6'>
       <section className='flex gap-x-6'>
         <div className='relative'>
           <Avatar className='size-[110px]'>
@@ -41,9 +43,11 @@ export default async function ProfilePage ({ params: { username } }: { params: {
             <PencilIcon />
           </button>}
         </div>
-        <div className=''>
-          <h1 className='font-bold text-xl'>{user.name}</h1>
-          <span className='block text-muted-foreground text-sm mb-2'>@{user.username}</span>
+        <div className='space-y-2'>
+          <div>
+            <h1 className='font-bold text-xl'>{user.name}</h1>
+            <span className='block text-muted-foreground text-sm mb-2'>@{user.username}</span>
+          </div>
           {user.role === 'teacher' && user.subjects !== undefined && <SubjectsList subjects={user.subjects}/>}
           {isTeacher && <RatingStars rating={3.2} />}
         </div>
@@ -54,7 +58,7 @@ export default async function ProfilePage ({ params: { username } }: { params: {
         <ClassModeBadge classMode={user.classMode}/>
       </section>}
 
-      {/* {isMyProfile ? <UpdateProfileForm user={user}/> : <ProfileInfo user={user} />} */}
+      {isMyProfile ? <UpdateProfileForm user={user}/> : <ProfileInfo user={user} />}
 
       {(user.role === 'teacher' && sessionUser.id !== user.id) && <section
         className='flex gap-x-4'

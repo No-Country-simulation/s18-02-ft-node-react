@@ -1,3 +1,5 @@
+'use client'
+
 import SearchIcon from '@/icons/search'
 import { Button } from './ui/button'
 import { Input } from './ui/input'

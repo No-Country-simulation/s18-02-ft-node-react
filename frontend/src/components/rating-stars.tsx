@@ -36,7 +36,7 @@ export default function RatingStars ({ rating = 0, totalStars = 5, onRatingChang
         return (
           <Star
             key={index}
-            className={`w-6 h-6 ${
+            className={`size-5 ${
               starValue <= (hoverRating === 0 ? rating : hoverRating)
                 ? 'text-yellow-400 fill-yellow-400'
                 : 'text-gray-300'
