@@ -12,9 +12,17 @@ import RecentTeacherCard from '@/components/recent-teacher-card'
 import api from '@/lib/server/api'
 
 export default async function Home () {
-  const currentRes = await api.current()
-  console.log('Home ', currentRes)
-  const loged = currentRes.status === 'success'
+  let sessionUser: SessionUser | undefined
+
+  try {
+    const currentRes = await api.current()
+    sessionUser = currentRes.payload
+  } catch (error) {
+    console.log('Usuario no logeado')
+  }
+
+  console.log('Home ', sessionUser)
+  const loged = sessionUser !== undefined
 
   return (<>
       <main>

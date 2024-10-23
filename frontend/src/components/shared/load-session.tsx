@@ -11,7 +11,9 @@ export default function LoadSession () {
     api.current().then(res => {
       setSession(res.payload)
     }).catch(error => {
-      console.log('error in load session: ', error)
+      if (error.response.data.status !== 'error') {
+        console.log('error in load session: ', error)
+      }
     })
   }, [setSession])
 
