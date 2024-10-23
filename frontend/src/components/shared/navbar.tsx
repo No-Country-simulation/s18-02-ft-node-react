@@ -32,8 +32,12 @@ export default function Navbar () {
   ]
 
 export default function Navbar () {
-  return (
-    <nav className='sticky bottom-0 flex py-4 px-8 justify-between bg-[#F3F3F3]'>
+  const sessionUser = useSessionStore(store => store.user)
+
+  return sessionUser === undefined
+    ? null
+    : (
+    <nav className='sticky bottom-0 flex py-4 px-8 justify-between bg-secondary'>
       {links.map(link => <Link
         key={link.name}
         href={link.path}
@@ -47,5 +51,5 @@ export default function Navbar () {
         </span>
       </Link>)}
     </nav>
-      )
+  )
 }
