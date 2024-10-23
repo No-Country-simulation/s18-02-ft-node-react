@@ -31,7 +31,7 @@ export function createApiMethods (axiosInstance: AxiosInstance, getToken: () => 
 
     return config
   }, async error => {
-    console.error('Request interceptor error: ', error.response)
+    // console.error('Request interceptor error: ', error.response)
     return Promise.reject(error)
   })
 
@@ -39,7 +39,7 @@ export function createApiMethods (axiosInstance: AxiosInstance, getToken: () => 
     // console.log('Response interceptor: ')
     return response.data
   }, async error => {
-    console.error('Response interceptor error: ', error.response)
+    // console.error('Response interceptor error: ', error.response)
     return Promise.reject(error)
   })
 
