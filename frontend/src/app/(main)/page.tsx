@@ -6,23 +6,15 @@ import { Faq } from '@/components/faq'
 import SearchBar from '@/components/search-bar'
 import Footer from '@/components/shared/footer'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import api from '@/lib/api'
 import { COMMENTS, NEXT_CLASSES, TEACHERS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
 import ClassCard from '@/components/class-card'
 import { Button } from '@/components/ui/button'
 import RecentTeacherCard from '@/components/recent-teacher-card'
+import { useSessionStore } from '@/stores/session'
 
 export default function Home () {
-  const [loged, setLoged] = useState(false)
-
-  useEffect(() => {
-    api.current().then(res => {
-      console.log(res)
-      setLoged(true)
-    }).catch(console.error)
-  }, [])
+  const loged = useSessionStore(store => store.user !== undefined)
 
   return (<>
       <main>
@@ -34,7 +26,7 @@ export default function Home () {
         <SearchBar />
 
         {loged || <section className='px-5 py-8 flex flex-col items-center gap-y-6'>
-          <h2 className='text-2xl font-bold'>Como funciona</h2>
+          <h2 className='text-2xl font-bold h3'>Como funciona</h2>
           <ul className='flex flex-col items-center gap-y-6'>
             <article>
               <div className='relative p-4 rounded-md max-w-[300px] bg-gray-300'>
@@ -60,7 +52,7 @@ export default function Home () {
           </ul>
         </section>}
 
-        {loged && <section className='px-5 py-8'>
+        {loged && <section className='px-5 py-8 pb-0 bg-secondary space-y-6'>
           <h2 className='text-2xl font-bold'>Próximas clases</h2>
           <Carousel
             opts={{
