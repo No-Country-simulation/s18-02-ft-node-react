@@ -1,5 +1,3 @@
-'use client'
-
 import ClassModeBadge from '@/components/shared/class-mode-badge'
 import SubjectsList from '@/components/subjects-list'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -29,6 +27,9 @@ export default async function ProfilePage ({ params: { username } }: { params: {
   const isTeacher = user.role === 'teacher'
 
   console.log(user)
+
+  const isMyProfile = user.id === sessionUser.id
+  const isTeacher = user.role === 'teacher'
 
   return (
     <main className='flex-1 py-6 px-5 space-y-6'>
