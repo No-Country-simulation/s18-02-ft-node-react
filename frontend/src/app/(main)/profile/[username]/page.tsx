@@ -28,6 +28,9 @@ export default async function ProfilePage ({ params: { username } }: { params: {
 
   console.log(user)
 
+  const isMyProfile = user.id === sessionUser.id
+  const isTeacher = user.role === 'teacher'
+
   return (
     <main className='flex-1 py-6 px-5 space-y-6'>
       <section className='flex gap-x-6 items-start'>
