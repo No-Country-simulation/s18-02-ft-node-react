@@ -8,9 +8,9 @@ import { Input } from './ui/input'
 import { Button, buttonVariants } from './ui/button'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import api from '@/lib/api-client'
+import api from '@/lib/client/api'
 import { useSessionStore } from '@/stores/session'
-import { setToken } from '@/lib/web'
+import { setTokenFromClient } from '@/lib/client'
 import { useRouter } from 'next/navigation'
 
 export default function LoginForm () {
@@ -27,9 +27,8 @@ export default function LoginForm () {
   const onSubmit = (values: LoginSchema) => {
     console.log(values)
     api.login(values).then(res => {
-      // console.log(res.data)
-      setSession(res.data.payload)
-      setToken(res.data.token)
+      setSession(res.payload)
+      setTokenFromClient(res.token)
       router.push('/')
     }).catch(error => {
       console.log('error: ', error.response.data)

@@ -11,18 +11,18 @@ interface LoginResponse extends BaseResponse<SessionUser> {
   token: string
 }
 
-const authRoutes = ['current', 'profile']
+const authRoutes = ['current', 'user']
 
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:276667114.
 export function createApiMethods (axiosInstance: AxiosInstance, getToken: () => string | undefined) {
   axiosInstance.defaults.baseURL = API_URL
+  axiosInstance.defaults.headers.get['Content-Type'] = 'application/json'
   axiosInstance.defaults.headers.post['Content-Type'] = 'application/json'
   axiosInstance.defaults.headers.put['Content-Type'] = 'application/json'
 
   axiosInstance.interceptors.request.use(config => {
-    console.log('Axios request')
+    // console.log('Axios request')
 
-    console.log(config)
     if (authRoutes.some(route => config.url?.includes(route))) {
       const token = getToken()
 
@@ -36,7 +36,7 @@ export function createApiMethods (axiosInstance: AxiosInstance, getToken: () => 
   })
 
   axiosInstance.interceptors.response.use(response => {
-    console.log('Response interceptor: ')
+    // console.log('Response interceptor: ')
     return response.data
   }, async error => {
     console.error('Response interceptor error: ', error.response)
@@ -55,6 +55,16 @@ export function createApiMethods (axiosInstance: AxiosInstance, getToken: () => 
     },
     async current (): Promise<BaseResponse<SessionUser>> {
       return axiosInstance.get('auth/current')
+    },
+    async getMyProfile (): Promise<BaseResponse<User>> {
+      return axiosInstance.get('user/my-profile')
+    },
+    async getProfile (username: string): Promise<BaseResponse<User>> {
+      return axiosInstance({
+        url: 'user/user-profile',
+        method: 'GET',
+        data: { username }
+      })
     }
   }
 }
