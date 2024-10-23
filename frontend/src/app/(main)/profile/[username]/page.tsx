@@ -1,5 +1,3 @@
-'use client'
-
 import ClassModeBadge from '@/components/shared/class-mode-badge'
 <<<<<<< HEAD
 import SubjectsList from '@/components/subjects-list'
@@ -76,26 +74,19 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import PencilIcon from '@/icons/pencil'
 import { USERS } from '@/lib/constants'
 import { getNameInitials } from '@/lib/utils'
-import UpdateProfileForm from '@/components/update-profile-form'
-import { notFound, useRouter } from 'next/navigation'
-import { useSessionStore } from '@/stores/session'
+import UpdateProfileForm from '@/components/profile/update-profile-form'
 import ProfileInfo from '@/components/profile/profile-info'
+import api from '@/lib/server/api'
+import { notFound } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import RatingStars from '@/components/rating-stars'
 
-export default function ProfilePage ({ params: { username } }: { params: { username: string } }) {
-  // const cookieStore = cookies()
-  // console.log(username, cookieStore.get('token'))
-  // fetch session user in the server with cookie
-  const sessionUser = useSessionStore(store => store.user)
+export default async function ProfilePage ({ params: { username } }: { params: { username: string } }) {
+  console.log(username)
+  const currentRes = await api.current()
+  const sessionUser = currentRes.payload
+  console.log('Session user: ', sessionUser)
   const user = USERS.find(user => user.username === username)
-  const router = useRouter()
-
-  if (sessionUser === undefined) {
-    router.push('/login')
-    return null
-  }
-
-  const isMyProfile = sessionUser.id === user?.id
-  const isTeacher = user?.role === 'teacher'
 
   return user === undefined
     ? <>
