@@ -1,5 +1,5 @@
 import type { TeacherClass } from '@/types'
-import { Card, CardFooter, CardHeader } from './ui/card'
+import { Card, CardHeader } from './ui/card'
 import { Button } from './ui/button'
 import UserAvatar from './shared/user-avatar'
 import { Badge } from './ui/badge'
