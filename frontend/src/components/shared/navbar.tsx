@@ -36,7 +36,7 @@ export default function Navbar () {
 
   if (isTeacher) {
     links.splice(1, 0, {
-      path: '/',
+      path: '/agenda',
       name: 'Agenda',
       icon: CalendarIcon
     })
