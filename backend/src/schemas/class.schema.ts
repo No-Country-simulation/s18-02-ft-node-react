@@ -1,43 +1,45 @@
 import { z } from "zod";
 
-const objectIdSchema = z.string().regex(/^[0-9a-fA-F]{24}$/, {
-  message: "Debe ser un ObjectId válido.",
-});
+export const objectIdSchema = z
+  .string({
+    required_error: "Se debe proporcionar un id.",
+  })
+  .regex(/^[0-9a-fA-F]{24}$/, {
+    message: "Debe ser un ObjectId válido.",
+  });
 
-const baseClassSchema = z.object({
+export const ReserveClassSchema = z.object({
   teacherId: objectIdSchema,
-  scheduleId: objectIdSchema,
-  studentId: objectIdSchema,
-  startTime: z.date({
-    required_error: "La hora de inicio es requerida.",
-    invalid_type_error: "El campo startTime debe ser una fecha válida.",
+  date: z.date({
+    required_error: "El campo date es requerido.",
+    invalid_type_error: "El campo date debe tener un formato valido.",
   }),
-  endTime: z.date({
-    required_error: "La hora de fin es requerida.",
-    invalid_type_error: "El campo endTime debe ser una fecha válida.",
+  subject: z.string({
+    required_error: "El campo subject es requerido.",
+    invalid_type_error: "El campo subject debe ser tipo de dato string",
   }),
-  isPaid: z.boolean().default(false),
-  isCompleted: z.boolean().default(false),
-  status: z.enum(["pending", "accepted"]).default("pending"),
 });
 
-const applyRefinements = (schema: z.ZodObject<any>) => {
-  return schema
-    .refine((data) => data.endTime > data.startTime, {
-      path: ["endTime"],
-      message: "La hora de fin debe ser posterior a la hora de inicio.",
-    })
-    .refine((data) => data.startTime > new Date(), {
-      path: ["startTime"],
-      message: "La hora de inicio no puede estar en el pasado.",
-    });
-};
+export type ReserveClassType = z.infer<typeof ReserveClassSchema>;
 
-export const ClassSchema = applyRefinements(baseClassSchema);
-export type ClassType = z.infer<typeof ClassSchema>;
+export const BlockDateSchema = z.object({
+  date: z.date({
+    required_error: "El campo date es requerido.",
+    invalid_type_error: "El campo date debe tener un formato valido.",
+  }),
+});
 
-export const CreateClassSchema = applyRefinements(baseClassSchema.omit({ isCompleted: true, isPaid: true }));
-export type CreateClassType = z.infer<typeof CreateClassSchema>;
+export type BlockDateType = z.infer<typeof BlockDateSchema>;
 
-export const UpdateClassSchema = applyRefinements(baseClassSchema.partial());
-export type UpdateClassType = z.infer<typeof UpdateClassSchema>;
+export const IdClassSchema = z.object({
+  id: objectIdSchema,
+});
+
+export type IdClassType = z.infer<typeof IdClassSchema>;
+
+export const UpdateClassStatusSchema = z.object({
+  id: objectIdSchema,
+  status: z.enum(["accepted", "cancelled"]),
+});
+
+export type UpdateClassStatusType = z.infer<typeof UpdateClassStatusSchema>;

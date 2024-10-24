@@ -12,11 +12,11 @@ export const authPassport = async (req: Request, res: Response, next: NextFuncti
   passport.authenticate("jwt", (error: any, user: IUser, info: any) => {
     try {
       if (error) {
-        return next(new AuthenticationError("There was an error in passport."));
+        return next(new InternalServerError());
       }
 
       if (!user) {
-        return next(new AuthenticationError("Failed to authenticate the user."));
+        return next(new AuthenticationError("No se a podido identificar al usuario."));
       }
 
       req.user = user;
@@ -35,11 +35,11 @@ export const authRole = (roleToValidate: string) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       if (!req.user) {
-        return next(new AuthenticationError("Failed to authenticate the user."));
+        return next(new AuthenticationError("No se a podido identificar al usuario."));
       }
 
       if (req.user.role !== roleToValidate) {
-        return next(new AuthorizationError(`You need role: ${req.user.role}`));
+        return next(new AuthorizationError(`Necesitas el role: ${req.user.role}`));
       }
 
       return next();
