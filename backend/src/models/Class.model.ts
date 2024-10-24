@@ -1,12 +1,10 @@
 import mongoose, { Document, PaginateModel, Schema, Types } from "mongoose";
-import paginate from "mongoose-paginate-v2";
 
 export interface IClass extends Document {
   _id: Types.ObjectId;
   teacherId: Types.ObjectId;
   studentId: Types.ObjectId;
   date: Date;
-  endTime: Date;
   subject: String;
   isPaid: Boolean;
   status: String;
@@ -33,21 +31,17 @@ const ClassSchema = new Schema<IClass>(
     isPaid: {
       type: Boolean,
       default: false,
-      required: true,
     },
     status: {
       type: String,
-      default: "pending",
       enum: ["pending", "accepted", "cancelled"],
-      required: true,
+      default: "pending",
     },
   },
   {
     timestamps: true,
   }
 );
-
-ClassSchema.plugin(paginate);
 
 interface IClassModel<T extends Document> extends PaginateModel<T> {}
 

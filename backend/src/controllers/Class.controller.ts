@@ -1,18 +1,25 @@
 import { Request, Response, NextFunction } from "express";
 import { InternalServerError } from "../utils/errors/InternalServerError";
-import { NotFoundError } from "../utils/errors/NotFoundError";
+import { AuthenticationError } from "../utils/errors/AuthenticationError";
 import { ClassService } from "../services/Class.service";
-import { CreateClassType, UpdateClassType } from "../schemas/class.schema";
+import { ReserveClassType, BlockDateType, IdClassType, UpdateClassStatusType } from "../schemas/class.schema";
+import { IUser } from "../models/User.model";
+import { BadRequestError } from "../utils/errors/BadRequestError";
 
 export class ClassController {
   constructor(private readonly classService: ClassService) {}
 
   // Crear una nueva clase
-  create = async (req: Request, res: Response, next: NextFunction) => {
-    const data: CreateClassType = req.body;
+  reserveClass = async (req: Request, res: Response, next: NextFunction) => {
+    const data: ReserveClassType = req.body;
+    const user = req.user;
 
     try {
-      const result = await this.classService.create(data);
+      if (!user) {
+        return new AuthenticationError("No se a podido auntenticar al usuario");
+      }
+
+      const result = await this.classService.createClass(data, user);
       res.status(201).send(result);
     } catch (error) {
       if (error instanceof Error) {
@@ -22,18 +29,39 @@ export class ClassController {
     }
   };
 
-  // Obtener una clase por ID
-  getById = async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
+  getClasses = async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user;
 
     try {
-      const classItem = await this.classService.getById(id);
-
-      if (!classItem) {
-        return next(new NotFoundError());
+      if (!user) {
+        return new AuthenticationError("No se a podido auntenticar al usuario");
       }
 
-      res.send(classItem);
+      const result = await this.classService.findUserClasses(user);
+      res.send(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        return next(error);
+      }
+      return next(new InternalServerError());
+    }
+  };
+
+  getClass = async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user;
+    const id = req.query.id?.toString();
+
+    try {
+      if (!user) {
+        return new AuthenticationError("No se a podido auntenticar al usuario");
+      }
+
+      if (!id) {
+        return new BadRequestError("Se debe proporcionar un id Valido");
+      }
+
+      const result = await this.classService.findUserClass(user, id);
+      res.send(result);
     } catch (error) {
       if (error instanceof Error) {
         return next(error);
@@ -43,16 +71,15 @@ export class ClassController {
   };
 
   // Actualizar una clase
-  update = async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
-    const data: UpdateClassType = req.body;
+  blockDate = async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user;
+    const data: BlockDateType = req.body;
 
     try {
-      const result = await this.classService.update(id, data);
-
-      if (!result) {
-        return next(new NotFoundError());
+      if (!user) {
+        return new AuthenticationError("No se a podido auntenticar al usuario");
       }
+      const result = await this.classService.createEmptyClass(data, user);
 
       res.send(result);
     } catch (error) {
@@ -63,41 +90,17 @@ export class ClassController {
     }
   };
 
-  // Eliminar una clase
-  delete = async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
+  updateClassStatus = async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user;
+    const data: UpdateClassStatusType = req.body;
 
     try {
-      const result = await this.classService.delete(id);
-
-      if (!result) {
-        return next(new NotFoundError());
+      if (!user) {
+        return new AuthenticationError("No se a podido auntenticar al usuario");
       }
+      const result = await this.classService.updateClassStatus(data, user);
 
-      res.status(204).send(); // Status 204 No Content
-    } catch (error) {
-      if (error instanceof Error) {
-        return next(error);
-      }
-      return next(new InternalServerError());
-    }
-  };
-
-  // Obtener todas las clases de un profesor por su teacherId
-  getAllByTeacherId = async (req: Request, res: Response, next: NextFunction) => {
-    const { teacherId } = req.params;
-
-    const page = Number(req.query.page);
-    const limit = Number(req.query.limit);
-
-    try {
-      const classes = await this.classService.getAllByTeacherId(teacherId, { page, limit });
-
-      if (!classes.payload.lenght) {
-        return next(new NotFoundError());
-      }
-
-      res.send(classes);
+      res.send(result);
     } catch (error) {
       if (error instanceof Error) {
         return next(error);
