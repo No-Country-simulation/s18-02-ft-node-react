@@ -4,15 +4,15 @@ import LeftArroowIcon from '@/icons/left-arrow'
 import { Button } from '../ui/button'
 import BellIcon from '@/icons/bell'
 import { Badge } from '../ui/badge'
-import { useUserStore } from '@/stores/user'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { getNameInitials } from '@/lib/utils'
+import { useSessionStore } from '@/stores/session'
 import { usePathname } from 'next/navigation'
 import { UserCircle } from 'lucide-react'
+import UserAvatar from './user-avatar'
+import Link from 'next/link'
 
 export default function Header () {
   const pathname = usePathname()
-  const user = useUserStore(store => store.user)
+  const sessionUser = useSessionStore(store => store.user)
 
   const onBack = () => {
     if (typeof window !== 'undefined') window.history.back()
@@ -50,12 +50,13 @@ export default function Header () {
           </Badge>
         </Button>
 
-        {user === undefined
-          ? <UserCircle className='size-10' />
-          : <Avatar>
-            <AvatarImage src={user.avatar} alt={`Avatar of ${user.username}`} />
-            <AvatarFallback className='w-full flex justify-center items-center bg-background'>{getNameInitials(user.name)}</AvatarFallback>
-          </Avatar>
+        {sessionUser === undefined
+          ? <Link href='/login'>
+            <UserCircle className='size-10' />
+          </Link>
+          : <Link href={`/profile/${sessionUser.username}`}>
+            <UserAvatar user={sessionUser} />
+          </Link>
         }
       </div>
     </header>

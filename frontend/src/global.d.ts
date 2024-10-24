@@ -1,15 +1,19 @@
+declare interface SessionUser {
+  id: string
+  name: string
+  role: 'student' | 'teacher'
+  avatar?: string
+  username: string
+}
+
 interface Base {
   id: string
   createdAt: string
   updatedAt: string
 }
 
-interface BaseUser extends Base {
-  name: string
-  username: string
+interface BaseUser extends SessionUser, Base {
   email: string
-  role: 'student' | 'teacher'
-  avatar?: string
   birthday: string | null
   description?: string
 }
@@ -23,6 +27,15 @@ declare interface TeacherUser extends BaseUser {
   subjects?: string[]
   classMode: 'remoto' | 'presencial'
   classPrice: number | null
+  schedulePreferences?: {
+    monday: string[]
+    tuesday: string[]
+    wednesday: string[]
+    thursday: string[]
+    friday: string[]
+    saturday: string[]
+    sunday: string[]
+  }
 }
 
 declare type User = StudentUser | TeacherUser

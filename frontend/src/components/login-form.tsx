@@ -8,8 +8,8 @@ import { Input } from './ui/input'
 import { Button, buttonVariants } from './ui/button'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import api from '@/lib/api'
-import { useUserStore } from '@/stores/user'
+import api from '@/lib/api-client'
+import { useSessionStore } from '@/stores/session'
 import { setToken } from '@/lib/web'
 import { useRouter } from 'next/navigation'
 
@@ -21,14 +21,14 @@ export default function LoginForm () {
       password: ''
     }
   })
-  const setUser = useUserStore(store => store.setUser)
+  const setSession = useSessionStore(store => store.setSession)
   const router = useRouter()
 
   const onSubmit = (values: LoginSchema) => {
     console.log(values)
     api.login(values).then(res => {
       // console.log(res.data)
-      setUser(res.data.payload)
+      setSession(res.data.payload)
       setToken(res.data.token)
       router.push('/')
     }).catch(error => {

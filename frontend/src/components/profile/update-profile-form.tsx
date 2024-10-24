@@ -1,20 +1,20 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './ui/form'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { type UpdateProfileSchema, updateStudentSchema, updateTeacherSchema } from '@/lib/zod'
-import { Input } from './ui/input'
-import DatePicker from './date-picker'
-import { Button } from './ui/button'
+import { Input } from '../ui/input'
+import DatePicker from '../date-picker'
+import { Button } from '../ui/button'
 
-export default function UpdateProfileForm ({ userProfile }: { userProfile: User }) {
+export default function UpdateProfileForm ({ user }: { user: User }) {
   const form = useForm<UpdateProfileSchema>({
-    resolver: zodResolver(userProfile.role === 'student' ? updateStudentSchema : updateTeacherSchema),
+    resolver: zodResolver(user.role === 'student' ? updateStudentSchema : updateTeacherSchema),
     defaultValues: {
       name: '',
       description: '',
-      ...(userProfile.role === 'student'
+      ...(user.role === 'student'
         ? {}
         : {
             classMode: 'remoto',
@@ -61,7 +61,7 @@ export default function UpdateProfileForm ({ userProfile }: { userProfile: User 
               <FormItem>
                 <FormLabel className='font-semibold'>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder={userProfile.email} type='email' />
+                  <Input placeholder={user.email} type='email' />
                 </FormControl>
               </FormItem>
             )}

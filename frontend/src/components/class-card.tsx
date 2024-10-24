@@ -1,27 +1,29 @@
-import RatingStars from './rating-stars'
-import ClassModeBadge from './shared/class-mode-badge'
-import SubjectsList from './subjects-list'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
+import type { TeacherClass } from '@/types'
+import { Card, CardHeader } from './ui/card'
+import { Button } from './ui/button'
+import UserAvatar from './shared/user-avatar'
+import { Badge } from './ui/badge'
+import ClockIcon from '@/icons/clock'
 
-export default function ClassCard ({ user }: { user: TeacherUser }) {
+export default function ClassCard ({ nextClass }: { nextClass: TeacherClass }) {
   return (
-    <Card className='max-w-sm rounded-lg'>
-      {user.avatar !== undefined && <img className='rounded-lg w-full' src={user.avatar} alt={`Avatar of ${user.username}`} />}
-      <CardHeader className='flex-row justify-between items-center'>
-        <CardTitle>Card Title</CardTitle>
-        <RatingStars rating={3.5} />
-      </CardHeader>
-      <CardContent className='space-y-2'>
-        {user.subjects !== undefined && <SubjectsList subjects={user.subjects}/>}
-        {user.description !== undefined && <CardDescription>{user.description}</CardDescription>}
-      </CardContent>
-      <CardFooter className='flex justify-between'>
-        <span className='font-bold text-2xl'>$99/h</span>
-        <div className='flex gap-x-2'>
-          <p>Disponible 04/07</p>
-          <ClassModeBadge classMode={user.classMode}/>
+    <Card>
+      <CardHeader className='flex-row justify-between items-start p-4'>
+        <div className='flex items-center gap-x-3'>
+          <UserAvatar user={nextClass.user} />
+          <div className='flex flex-col'>
+            <strong className='text-lg font-semibold'>{nextClass.user.name}</strong>
+            <span
+              className='text-xs flex text-muted-foreground gap-x-1'
+            ><ClockIcon /> Lunes 27/11 a las 14hs</span>
+          </div>
         </div>
-      </CardFooter>
+        <Badge
+          variant='outline'
+          className='rounded-sm py-1'
+        >{nextClass.subject}</Badge>
+        <Button className='w-full'>Cancelar</Button>
+      </CardHeader>
     </Card>
   )
 }

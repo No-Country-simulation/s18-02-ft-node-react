@@ -3,7 +3,7 @@
 import Logo from '@/components/logo'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import api from '@/lib/api'
+import api from '@/lib/client/api'
 
 export default function AuthConfirmAccountPage ({ params: { token } }: { params: { token: string } }) {
   const router = useRouter()

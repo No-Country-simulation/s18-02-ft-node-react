@@ -1,3 +1,5 @@
+import { type TeacherClass } from '@/types'
+
 export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:2004/api/'
 
 export const TEACHERS: TeacherUser[] = [
@@ -47,7 +49,12 @@ export const USERS: User[] = [
   ...TEACHERS
 ]
 
-export const SESSION_USER = USERS[0]
+export const SESSION_USER: SessionUser = {
+  id: 'asd0-23',
+  name: 'David Garcia',
+  avatar: 'gacub20ru@gmail.com',
+  username: 'dagamdev'
+}
 
 export const COMMENTS = [
   {
@@ -61,5 +68,18 @@ export const COMMENTS = [
     user: USERS[0],
     content: 'Hola este es el contenido del comentario. Holdksodfw er sfdkn l-32.',
     rating: 2
+  }
+]
+
+export const NEXT_CLASSES: TeacherClass[] = [
+  {
+    id: '23-23-23-sd',
+    user: TEACHERS[0],
+    subject: 'Matematica'
+  },
+  {
+    id: '23-lk-23-sd',
+    user: TEACHERS[1],
+    subject: 'Quimica'
   }
 ]

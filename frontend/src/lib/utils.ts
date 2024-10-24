@@ -8,3 +8,7 @@ export function cn (...inputs: ClassValue[]) {
 export function getNameInitials (name: string) {
   return name.split(/ +/g).map(s => s[0]).slice(0, 3).join('')
 }
+
+export function isClient () {
+  return typeof window !== 'undefined'
+}
