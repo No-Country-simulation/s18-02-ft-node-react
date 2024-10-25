@@ -29,7 +29,7 @@ declare interface StudentUser extends BaseUser {
 
 declare interface TeacherUser extends BaseUser {
   role: 'teacher'
-  subjects?: string[]
+  subjects: string[]
   classMode: 'remoto' | 'presencial'
   classPrice: number | null
   schedulePreferences?: {
