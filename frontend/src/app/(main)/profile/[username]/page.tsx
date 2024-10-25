@@ -17,7 +17,6 @@ export default async function ProfilePage ({ params: { username } }: { params: {
 
   const userRes = await (username === sessionUser.username ? api.getMyProfile() : api.getProfile(username))
   console.log('profile: ', userRes)
-  const user = userRes.payload
 
   if (userRes.status !== 'success') {
     notFound()
