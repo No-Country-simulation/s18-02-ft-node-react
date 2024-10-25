@@ -80,3 +80,8 @@ body {
 .carouselItem {
   width: calc(100dvw - 55px);
 }
+
+textarea {
+  field-sizing: content;
+  max-height: 260px;
+}
