@@ -34,17 +34,28 @@ export const registerFormSchema = registerSchema.refine(data => data.password ==
 
 export type RegisterSchema = z.infer<typeof registerSchema>
 
-export const updateStudentSchema = registerSchema.pick({ name: true }).extend({
-  description: z.string().max(100, 'La descripcion no debe contener más de 100 caracteres').optional(),
-  birthday: z.string().datetime('Formato de fecha incorrecto').optional()
+export const updateStudentSchema = z.object({
+  name: registerSchema.shape.name,
+  description: z.string()
+    .max(100, 'La descripcion no debe contener más de 100 caracteres')
+    .optional(),
+  birthday: z.string()
+    .datetime('Formato de fecha incorrecto')
+    .nullable()
 })
 
 export type UpdateStudentSchema = z.infer<typeof updateStudentSchema>
 
 export const updateTeacherSchema = updateStudentSchema.extend({
   classMode: z.enum(['remoto', 'presencial']).optional(),
-  classPrice: z.number().min(0, 'El precio no puede ser negativo').optional(),
-  subjects: z.array(z.string()).optional()
+  classPrice: z
+    .string()
+    .min(1, { message: 'El precio no puede estar vacío' })
+    .regex(/^[0-9.,]+$/, { message: 'El precio solo puede contener números, puntos o comas' })
+    .transform((value) => value.replace(',', '.'))
+    .refine((value) => !isNaN(parseFloat(value)), { message: 'El precio debe ser un número válido' })
+    .transform((value) => parseFloat(value)),
+  subjects: z.array(z.string())
 })
 
 export type UpdateTeacherSchema = z.infer<typeof updateTeacherSchema>
