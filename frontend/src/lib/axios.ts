@@ -1,5 +1,5 @@
 import { type AxiosInstance } from 'axios'
-import type { LoginSchema, RegisterSchema } from './zod'
+import type { LoginSchema, RegisterSchema, UpdateProfileSchema } from './zod'
 import { API_URL } from './constants'
 
 interface BaseResponse<T> {
@@ -13,7 +13,6 @@ interface LoginResponse extends BaseResponse<SessionUser> {
 
 const authRoutes = ['current', 'user']
 
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:276667114.
 export function createApiMethods (axiosInstance: AxiosInstance, getToken: () => string | undefined) {
   axiosInstance.defaults.baseURL = API_URL
   axiosInstance.defaults.headers.get['Content-Type'] = 'application/json'
@@ -47,7 +46,10 @@ export function createApiMethods (axiosInstance: AxiosInstance, getToken: () => 
     async login (credentials: LoginSchema): Promise<LoginResponse> {
       return await axiosInstance.post('auth/login', credentials)
     },
-    async register (user: RegisterSchema & { role: User['role'] }) {
+    async register (user: RegisterSchema & { role: User['role'] }): Promise<{
+      status: string
+      message: string
+    }> {
       return axiosInstance.post('auth/register', { ...user, repassword: user.repeatedPassword })
     },
     async confirmEmail (token: string) {
@@ -65,6 +67,9 @@ export function createApiMethods (axiosInstance: AxiosInstance, getToken: () => 
         method: 'GET',
         data: { username }
       })
+    },
+    async updateProfile (data: UpdateProfileSchema & { username: string }): Promise<BaseResponse<User>> {
+      return axiosInstance.put('user/profile', data)
     }
   }
 }
