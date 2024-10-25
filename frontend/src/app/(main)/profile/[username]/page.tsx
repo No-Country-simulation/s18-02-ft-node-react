@@ -2,7 +2,6 @@ import ClassModeBadge from '@/components/shared/class-mode-badge'
 import SubjectsList from '@/components/subjects-list'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import PencilIcon from '@/icons/pencil'
-import { USERS } from '@/lib/constants'
 import { getNameInitials } from '@/lib/utils'
 import UpdateProfileForm from '@/components/profile/update-profile-form'
 import ProfileInfo from '@/components/profile/profile-info'
@@ -16,13 +15,14 @@ export default async function ProfilePage ({ params: { username } }: { params: {
   const currentRes = await api.current()
   const sessionUser = currentRes.payload
   console.log('Session user: ', sessionUser)
+
   const userRes = await (username === sessionUser.username ? api.getMyProfile() : api.getProfile(username))
   console.log('profile: ', userRes)
-  const user = userRes.payload
 
-  if (user === undefined) {
+  if (userRes.status !== 'success') {
     notFound()
   }
+  const user = userRes.payload
 
   const isMyProfile = user.id === sessionUser.id
   const isTeacher = user.role === 'teacher'
@@ -31,8 +31,8 @@ export default async function ProfilePage ({ params: { username } }: { params: {
 
   return (
     <main className='flex-1 py-6 px-5 space-y-6'>
-      <section className='flex gap-x-6'>
-        <div className='relative'>
+      <section className='flex gap-x-6 items-start'>
+        <div className='relative flex'>
           <Avatar className='size-[110px]'>
             <AvatarImage src={user.avatar} alt={`Avatar of ${user.username}`}/>
             <AvatarFallback
@@ -48,7 +48,7 @@ export default async function ProfilePage ({ params: { username } }: { params: {
             <h1 className='font-bold text-xl'>{user.name}</h1>
             <span className='block text-muted-foreground text-sm mb-2'>@{user.username}</span>
           </div>
-          {user.role === 'teacher' && user.subjects !== undefined && <SubjectsList subjects={user.subjects}/>}
+          {isTeacher && user.subjects !== undefined && <SubjectsList subjects={user.subjects}/>}
           {isTeacher && <RatingStars rating={3.2} />}
         </div>
       </section>
