@@ -27,7 +27,8 @@ declare interface TeacherUser extends BaseUser {
   subjects: string[]
   classMode: 'remoto' | 'presencial'
   classPrice: number | null
-  schedulePreferences?: {
+  schedulePreferences: {
+    id: string
     monday: string[]
     tuesday: string[]
     wednesday: string[]
