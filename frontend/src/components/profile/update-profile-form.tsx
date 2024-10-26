@@ -144,7 +144,7 @@ export default function UpdateProfileForm ({ user }: { user: User }) {
           </>}
         </fieldset>
 
-        <Link href='/agenda' className={cn(buttonVariants({ variant: 'outline' }), 'w-full')}>Configurar horarios del mes</Link>
+        <Link href={`/profile/${user.username}/availability`} className={cn(buttonVariants({ variant: 'outline' }), 'w-full')}>Configurar horarios del mes</Link>
 
         <div className='flex gap-x-4'>
           <Button
