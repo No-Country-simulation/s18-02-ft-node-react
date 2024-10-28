@@ -9,6 +9,8 @@ import { usePathname } from 'next/navigation'
 import { UserCircle } from 'lucide-react'
 import UserAvatar from './user-avatar'
 import Link from 'next/link'
+import LogoIcon from '@/icons/logo'
+import TeachAppIcon from '@/icons/teach-app'
 
 export default function Header () {
   const pathname = usePathname()
@@ -19,15 +21,15 @@ export default function Header () {
   }
 
   return (
-    <header className='sticky z-50 top-0 flex justify-between items-center p-4 bg-secondary'>
+    <header className='sticky z-50 top-0 flex justify-between items-center p-4 bg-secondary rounded-b-lg'>
       <div
-        className='flex items-center gap-x-2 cursor-pointer'
+        className={'flex items-center cursor-pointer ' + (pathname === '/' ? 'gap-x-3' : 'gap-x-2')}
         onClick={onBack}
       >
         {pathname === '/'
           ? <>
-          <div className='size-10 rounded-full bg-primary'></div>
-          <h2 className='font-semibold'>Logo</h2>
+          <LogoIcon className='size-6' />
+          <TeachAppIcon className='h-6 w-auto' />
         </>
           : <>
           <LeftArroowIcon className='size-8' />
@@ -37,14 +39,13 @@ export default function Header () {
 
       <div className='flex gap-x-4'>
         <Button
-          variant='outline'
           size='icon'
-          className='relative'
+          className='relative [&_svg]:size-5'
         >
-          <BellIcon />
+          <BellIcon className='text-muted' />
           <Badge
             variant='destructive'
-            className='absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 px-[7px] py-0.5'
+            className='absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 px-[7px] py-0.5 text-primary'
           >
             5
           </Badge>
