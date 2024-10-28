@@ -7,9 +7,14 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import { COMMENTS, NEXT_CLASSES, TEACHERS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import ClassCard from '@/components/class-card'
-import { Button } from '@/components/ui/button'
-import RecentTeacherCard from '@/components/recent-teacher-card'
+import { Button, buttonVariants } from '@/components/ui/button'
 import api from '@/lib/server/api'
+import Link from 'next/link'
+import UserCard from '@/components/user-card'
+import { Badge } from '@/components/ui/badge'
+import TrendingUpIcon from '@/icons/trending-up'
+import TrendingDownIcon from '@/icons/trending-down'
+import ClassChart from '@/components/class-chart'
 
 export default async function Home () {
   let sessionUser: SessionUser | undefined
@@ -60,7 +65,7 @@ export default async function Home () {
           </ul>
         </section>}
 
-        {loged && <section className='px-5 py-8 pb-0 bg-secondary space-y-6'>
+        {loged && <section className='px-5 py-6 pb-0 space-y-4'>
           <h2 className='text-2xl font-bold'>Próximas clases</h2>
           <Carousel
             opts={{
@@ -72,20 +77,56 @@ export default async function Home () {
                 key={nextClass.id}
                 className='carouselItem max-w-sm pl-2 basis-auto'
               >
-                <ClassCard nextClass={nextClass}/>
+                <ClassCard nextClass={nextClass} sessionUser={sessionUser!}/>
               </CarouselItem>)}
             </CarouselContent>
           </Carousel>
         </section>}
 
-        <section className={cn('px-5 py-8 bg-secondary space-y-6', loged ? 'pb-0' : '')}>
+        {sessionUser?.role === 'teacher' && <>
+          <section className='pt-6 px-5 flex gap-x-4'>
+            <article className='bg-secondary rounded-lg p-4 space-y-3'>
+              <strong>Clases reservadas</strong>
+              <div className='flex justify-between items-center'>
+                <span className='text-5xl font-bold'>43</span>
+                <Badge
+                  variant='outline'
+                  className='px-3 py-2 rounded-md border-green-500 text-green-500'
+                ><TrendingUpIcon className='mr-2'/>17%</Badge>
+              </div>
+              <span className='block text-sm'>vs Agosto, 2024</span>
+            </article>
+            <article className='bg-muted rounded-lg p-4 space-y-3'>
+              <strong>Clases canceladas</strong>
+              <div className='flex justify-between items-center'>
+                <span className='text-5xl font-bold'>03</span>
+                <Badge
+                  variant='outline'
+                  className='px-3 py-2 rounded-md border-foreground'
+                ><TrendingDownIcon className='mr-2'/> 5%</Badge>
+              </div>
+              <span className='block text-sm'>vs Agosto, 2024</span>
+            </article>
+          </section>
+
+          <section className='px-5 py-6 pb-0'>
+            <h2 className='font-bold text-2xl mb-4'>Mi rendimiento anual</h2>
+            <ClassChart />
+            <Button
+              variant='outline'
+              className='w-full mt-4'
+            >Configurar tus horarios del mes</Button>
+          </section>
+        </>}
+
+        {sessionUser?.role !== 'teacher' && <section className={cn('px-5 py-6', loged ? 'pb-0' : '')}>
           <h2 className={cn('font-bold text-2xl', loged ? '' : 'text-center')}>Clases recomendadas</h2>
           <Carousel
             opts={{
               align: 'start'
             }}
           >
-            <CarouselContent className='gap-x-2 -ml-2'>
+            <CarouselContent className='gap-x-2 -ml-2 mt-4'>
               {TEACHERS.map(teacher => <CarouselItem
                 key={teacher.id}
                 className='carouselItem max-w-sm pl-2 basis-auto'
@@ -94,23 +135,26 @@ export default async function Home () {
               </CarouselItem>)}
             </CarouselContent>
           </Carousel>
-          {loged && <Button className='w-full'>Reserver una clase</Button>}
-        </section>
+          {loged && <Button className='w-full mt-6'>Reserver una clase</Button>}
+        </section>}
 
-        {loged && <section className='px-5 py-8 bg-secondary space-y-6'>
-          <h2 className='text-2xl font-bold'>Mis profesores recientes</h2>
-          <ul className='space-y-2'>
-            <li>
-              <RecentTeacherCard />
-            </li>
-            <li>
-              <RecentTeacherCard />
-            </li>
+        {loged || <section className='py-8 px-12 bg-foreground flex flex-col items-center gap-y-5'>
+          <p className='text-primary text-center text-pretty'>Únete a nuestra comunidad de profesores particulares y conecta con alumnos que buscan mejorar en tus materias. Regístrate ahora, establece tu propio horario.</p>
+          <Link
+            href='/register'
+            className={cn(buttonVariants(), 'max-w-40 w-full')}
+          >Regístrate</Link>
+        </section>}
+
+        {loged && <section className='px-5 py-6 space-y-4'>
+          <h2 className='text-2xl font-bold'>Mis {sessionUser?.role === 'teacher' ? 'alumnos' : 'profesores'} recientes</h2>
+          <ul className='space-y-4'>
+            {TEACHERS.map(teacher => <UserCard key={teacher.id} user={teacher} classes={3}/>)}
           </ul>
         </section>}
 
         {loged || <section className='px-5 py-8 space-y-6'>
-          <h2 className='text-2xl font-bold text-center'>Preguntas freguntas</h2>
+          <h2 className='text-2xl font-bold text-center'>Preguntas frecuentes</h2>
           <Faq />
           <Carousel
             opts={{
