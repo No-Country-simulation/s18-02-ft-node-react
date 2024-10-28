@@ -51,10 +51,10 @@ export default function Navbar () {
         return (<Link
           key={link.name}
           href={link.path}
-          className='flex flex-col items-center gap-y-1 text-[#607D8B]'
+          className='flex flex-col items-center gap-y-1 text-chart-3'
         >
           <span className={cn('bg-background p-3 rounded-md flex', active
-            ? 'bg-[#607D8B] text-white'
+            ? 'bg-chart-3 text-primary'
             : ''
           )}>
             <link.icon />
