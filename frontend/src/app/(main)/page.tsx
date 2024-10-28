@@ -15,7 +15,6 @@ import TrendingUpIcon from '@/icons/trending-up'
 import TrendingDownIcon from '@/icons/trending-down'
 import ClassChart from '@/components/class-chart'
 import RecommendedClasses from '@/components/shared/recommended-classes'
-import RecentTeacherCard from '@/components/recent-teacher-card'
 
 export const dynamic = 'force-dynamic'
 
@@ -139,15 +138,18 @@ export default async function Home () {
           </ul>
         </section>}
 
-        {loged && <section className='px-5 py-8 bg-secondary space-y-6'>
-          <h2 className='text-2xl font-bold'>Mis profesores recientes</h2>
-          <ul className='space-y-2'>
-            <li>
-              <RecentTeacherCard />
-            </li>
-            <li>
-              <RecentTeacherCard />
-            </li>
+        {loged || <section className='py-8 px-12 bg-foreground flex flex-col items-center gap-y-5'>
+          <p className='text-primary text-center text-pretty'>Únete a nuestra comunidad de profesores particulares y conecta con alumnos que buscan mejorar en tus materias. Regístrate ahora, establece tu propio horario.</p>
+          <Link
+            href='/register'
+            className={cn(buttonVariants(), 'max-w-40 w-full')}
+          >Regístrate</Link>
+        </section>}
+
+        {loged && <section className='px-5 py-6 space-y-4'>
+          <h2 className='text-2xl font-bold'>Mis {sessionUser?.role === 'teacher' ? 'alumnos' : 'profesores'} recientes</h2>
+          <ul className='space-y-4'>
+            {TEACHERS.map(teacher => <UserCard key={teacher.id} user={teacher} classes={3}/>)}
           </ul>
         </section>}
 
