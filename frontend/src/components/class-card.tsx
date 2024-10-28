@@ -4,8 +4,12 @@ import { Button } from './ui/button'
 import UserAvatar from './shared/user-avatar'
 import { Badge } from './ui/badge'
 import ClockIcon from '@/icons/clock'
+import CheckCircleIcon from '@/icons/check-circle'
 
-export default function ClassCard ({ nextClass }: { nextClass: TeacherClass }) {
+export default function ClassCard ({ nextClass, sessionUser }: {
+  nextClass: TeacherClass
+  sessionUser: SessionUser
+}) {
   return (
     <Card>
       <CardHeader className='flex-row justify-between items-start p-4'>
@@ -18,13 +22,18 @@ export default function ClassCard ({ nextClass }: { nextClass: TeacherClass }) {
             ><ClockIcon /> Lunes 27/11 a las 14hs</span>
           </div>
         </div>
-        <Badge
-          variant='outline'
-          className='rounded-sm py-1'
-        >{nextClass.subject}</Badge>
+        {sessionUser.role === 'student'
+          ? <Badge
+            variant='outline'
+            className='rounded-sm py-1'
+          >{nextClass.subject}</Badge>
+          : <Badge className='p-2 rounded-md text-green-500 border-green-500'>
+            <CheckCircleIcon />
+          </Badge>
+        }
       </CardHeader>
       <CardFooter className='px-4 pb-4'>
-        <Button className='w-full'>Cancelar</Button>
+        <Button className='w-full' variant='outline'>Cancelar</Button>
       </CardFooter>
     </Card>
   )
