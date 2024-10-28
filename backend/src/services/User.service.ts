@@ -4,6 +4,8 @@ import { BadRequestError } from "../utils/errors/BadRequestError";
 import { IUser } from "../models/User.model";
 import { PreferencesUpdateType, UserUpdateType } from "../schemas/user.schemas";
 import { DatabaseError } from "../utils/errors/DatabaseError";
+import { cloudinary } from "../config/cloudinary/cloudinary";
+import { UploadApiResponse } from "cloudinary";
 
 type Query = {
   subject?: string;
@@ -16,6 +18,32 @@ type OptionsType = {
   limit: number;
   select: string;
 };
+
+export interface CloudinaryResponse {
+  asset_id: string;
+  public_id: string;
+  version: number;
+  version_id: string;
+  signature: string;
+  width: number;
+  height: number;
+  format: string;
+  resource_type: string;
+  created_at: Date;
+  tags: any[];
+  bytes: number;
+  type: string;
+  etag: string;
+  placeholder: boolean;
+  url: string;
+  secure_url: string;
+  asset_folder?: string;
+  display_name?: string;
+  access_mode: string;
+  overwritten: boolean;
+  original_filename: string;
+  api_key: string;
+}
 
 type WeekDays = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
 
@@ -234,6 +262,32 @@ export class UserService {
         status: "success",
         message: "Las preferencias han sido actualizadas correctamente.",
       };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateAvatar(user: IUser, photo: Express.Multer.File) {
+    try {
+      const uploadResult: CloudinaryResponse = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.v2.uploader.upload_stream(
+          {
+            upload_preset: "tatrade_profile",
+            public_id: `${user.email}`,
+            use_filename: true,
+            overwrite: true,
+            transformation: [{ width: 250, height: 250, gravity: "faces", crop: "thumb" }, { radius: "max" }],
+          },
+          (error, result: UploadApiResponse | undefined) => {
+            if (error) return reject(error);
+            resolve(result as unknown as CloudinaryResponse);
+          }
+        );
+        uploadStream.end(photo.buffer);
+      });
+      user.avatar = uploadResult!.url;
+      await user.save();
+      return { status: "success", message: "El avatar ha sido actualizado", payload: user };
     } catch (error) {
       throw error;
     }

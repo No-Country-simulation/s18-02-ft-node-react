@@ -5,6 +5,7 @@ import { errorHandler } from "../middlewares/errorHandler";
 import routerAuth from "./Auth.routes";
 import routerClass from "./Class.routes";
 import routerUser from "./User.routes";
+import routerSeed from "./Seed.routes";
 
 const router = Router();
 
@@ -12,6 +13,7 @@ const router = Router();
 router.use("/api/user", routerUser);
 router.use("/api/auth", routerAuth);
 router.use("/api/class", routerClass);
+router.use("/api/seed", routerSeed);
 
 //404
 router.use((req: Request, res: Response, next: NextFunction) => {

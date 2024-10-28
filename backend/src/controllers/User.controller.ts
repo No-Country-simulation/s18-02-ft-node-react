@@ -100,4 +100,27 @@ export class UserController {
       return next(new InternalServerError());
     }
   };
+
+  updateAvatar = async (req: Request, res: Response, next: NextFunction) => {
+    const file = req.file;
+    const user = req.user;
+    try {
+      if (!user) {
+        return new AuthenticationError("No se a podido auntenticar al usuario");
+      }
+
+      if (!file) {
+        return new BadRequestError("No se ha proporcionado una imagen valida.");
+      }
+      const result = await this.userService.updateAvatar(user, file);
+
+      res.send(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        return next(error);
+      }
+
+      return next(new InternalServerError());
+    }
+  };
 }
