@@ -18,5 +18,6 @@ routerUser.get("/user-profile", userController.userProfile);
 
 routerUser.put("/profile", validateBody(UserUpdateSchema), authPassport, userController.updateProfile);
 routerUser.put("/preferences", authPassport, authRole("teacher"), validateBody(PreferencesUpdateSchema), userController.updatePreferences);
+routerUser.put("/avatar", authPassport, userController.updateAvatar);
 
 export default routerUser;

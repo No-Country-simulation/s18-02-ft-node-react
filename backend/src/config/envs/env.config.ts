@@ -15,4 +15,9 @@ export const envs = {
   SMTP_PORT: get("SMTP_PORT").required().asPortNumber(),
   SMTP_USER: get("SMTP_USER").required().asString(),
   SMTP_PASS: get("SMTP_PASS").required().asString(),
+
+  CLOUDINARY_URL: get("CLOUDINARY_URL").required().asString(),
+  CLOUDINARY_NAME: get("CLOUDINARY_NAME").required().asString(),
+  CLOUDINARY_KEY: get("CLOUDINARY_KEY").required().asString(),
+  CLOUDINARY_SECRET: get("CLOUDINARY_SECRET").required().asString(),
 };
