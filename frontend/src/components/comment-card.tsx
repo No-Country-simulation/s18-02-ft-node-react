@@ -10,8 +10,8 @@ export default function CommentCard ({ comment }: { comment: {
   rating: number
 } }) {
   return (
-    <Card className='bg-secondary px-5 py-8 text-center text-pretty max-w-sm h-full'>
-      <CardDescription className='text-md'>
+    <Card className='bg-secondary px-5 py-8 max-w-sm h-full'>
+      <CardDescription className='text-md text-center text-pretty text-foreground'>
         {comment.content}
       </CardDescription>
       <CardContent className='flex flex-col gap-y-4 items-center mt-4'>
