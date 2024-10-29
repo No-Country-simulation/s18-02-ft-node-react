@@ -1,17 +1,15 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import XIcon from '@/icons/x'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import AvailabilityButton from './availability-button'
 
 const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 const schedules = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
 
-export default function AvailabilityCard ({ availability, edit, onChange, deleteAvailability }: {
+export default function AvailabilityCard ({ availability, edit, onChange }: {
   availability: TeacherUser['schedulePreferences']
   edit: boolean
   onChange: (days: string[], schedules: string[]) => void
-  deleteAvailability: () => void
 }) {
   const [selectedDays, setSelectedDays] = useState<string[]>(Object.entries(availability)
     .reduce((prev: string[], [key, value]) => typeof value === 'object' && value.length > 0 ? [...prev, key] : prev, [])
@@ -20,23 +18,18 @@ export default function AvailabilityCard ({ availability, edit, onChange, delete
     .find(([key, value]) => typeof value === 'object' && value.length > 0)?.[1] as string[] ?? []
   )
 
-  useEffect(() => {
-    console.log(selectedDays, selectedSchedules)
-  }, [])
-
   return (
-    <li
+    <div
       className='py-6 px-4 bg-card border rounded-md space-y-4'
     >
       <section>
         <strong>Dias de la semana</strong>
         <ol className='flex flex-wrap gap-y-4 gap-x-2 mt-4'>
           {days.map(day => {
-            return <Button
+            return <AvailabilityButton
               key={day}
-              className='py-1 px-2 disabled:bg-muted'
-              variant={selectedDays.includes(day) ? 'default' : 'outline'}
-              disabled={!edit && selectedDays.includes(day)}
+              selected={selectedDays.includes(day)}
+              edit={edit}
               onClick={() => {
                 let updatedSelectedDays
 
@@ -49,8 +42,8 @@ export default function AvailabilityCard ({ availability, edit, onChange, delete
                 onChange(updatedSelectedDays, selectedSchedules)
               }}
             >
-              {day.toLowerCase()}
-            </Button>
+              {day.toUpperCase()}
+            </AvailabilityButton>
           })}
         </ol>
       </section>
@@ -58,11 +51,10 @@ export default function AvailabilityCard ({ availability, edit, onChange, delete
         <strong>Horarios disponibles</strong>
         <ol className='flex flex-wrap gap-y-4 gap-x-2 mt-4'>
           {schedules.map(schedule => {
-            return <Button
+            return <AvailabilityButton
               key={schedule}
-              className='py-1 px-2 disabled:bg-muted'
-              variant={selectedSchedules.includes(schedule) ? 'default' : 'outline'}
-              disabled={!edit && selectedSchedules.includes(schedule)}
+              selected={selectedSchedules.includes(schedule)}
+              edit={edit}
               onClick={() => {
                 let updatedSelectedSchedules
 
@@ -76,16 +68,10 @@ export default function AvailabilityCard ({ availability, edit, onChange, delete
               }}
             >
               {schedule}
-            </Button>
+            </AvailabilityButton>
           })}
         </ol>
       </section>
-      {edit && <Button
-        variant='link'
-        onClick={deleteAvailability}
-      >
-        <XIcon /> Eliminar disponibilidad
-      </Button>}
-    </li>
+    </div>
   )
 }
