@@ -139,7 +139,7 @@ export default async function Home () {
         </section>}
 
         {loged || <section className='py-8 px-12 bg-foreground flex flex-col items-center gap-y-5'>
-          <p className='text-primary text-center text-pretty'>Únete a nuestra comunidad de profesores particulares y conecta con alumnos que buscan mejorar en tus materias. Regístrate ahora, establece tu propio horario.</p>
+          <p className='text-background text-center text-pretty'>Únete a nuestra comunidad de profesores particulares y conecta con alumnos que buscan mejorar en tus materias. Regístrate ahora, establece tu propio horario.</p>
           <Link
             href='/register'
             className={cn(buttonVariants(), 'max-w-40 w-full')}
