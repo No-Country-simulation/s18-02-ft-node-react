@@ -4,12 +4,13 @@ import { AuthenticationError } from "../utils/errors/AuthenticationError";
 import { UserUpdateType, PreferencesUpdateType } from "../schemas/user.schemas";
 import { UserService } from "../services/User.service";
 import { BadRequestError } from "../utils/errors/BadRequestError";
+import { IUser } from "../models/User.model";
 
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   myProfile = async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user;
+    const user = req.user as IUser;
 
     try {
       if (!user) {
@@ -64,7 +65,7 @@ export class UserController {
 
   updateProfile = async (req: Request, res: Response, next: NextFunction) => {
     const data: UserUpdateType = req.body;
-    const user = req.user;
+    const user = req.user as IUser;
     try {
       if (!user) {
         return new AuthenticationError("No se a podido auntenticar al usuario");
@@ -84,7 +85,7 @@ export class UserController {
 
   updatePreferences = async (req: Request, res: Response, next: NextFunction) => {
     const data: PreferencesUpdateType = req.body;
-    const user = req.user;
+    const user = req.user as IUser;
     try {
       if (!user) {
         return new AuthenticationError("No se a podido auntenticar al usuario");
@@ -103,7 +104,7 @@ export class UserController {
 
   updateAvatar = async (req: Request, res: Response, next: NextFunction) => {
     const file = req.file;
-    const user = req.user;
+    const user = req.user as IUser;
     try {
       if (!user) {
         return new AuthenticationError("No se a podido auntenticar al usuario");

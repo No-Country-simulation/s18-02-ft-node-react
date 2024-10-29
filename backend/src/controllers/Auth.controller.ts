@@ -4,6 +4,7 @@ import { InternalServerError } from "../utils/errors/InternalServerError";
 import { AuthorizationError } from "../utils/errors/AuthorizationError";
 import { LoginType, RegisterType } from "../schemas/user.schemas";
 import { AuthService } from "../services/Auth.service";
+import { IUser } from "../models/User.model";
 
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -82,7 +83,7 @@ export class AuthController {
   };
 
   currentSession = async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user;
+    const user = req.user as IUser;
     try {
       if (!user) {
         throw new AuthorizationError("No hay sesion activa.");
@@ -94,6 +95,7 @@ export class AuthController {
         avatar: user.avatar,
         id: user._id,
         role: user.role,
+        classes: user.classes,
       };
 
       res.send({
