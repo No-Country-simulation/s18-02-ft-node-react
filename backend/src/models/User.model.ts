@@ -3,8 +3,8 @@ import paginate from "mongoose-paginate-v2";
 import { TimeSlot } from "../schemas/user.schemas";
 import { IClass } from "./Class.model";
 
-type UserRole = "teacher" | "student";
-type ClassMode = "remoto" | "presencial";
+export type UserRole = "teacher" | "student";
+export type ClassMode = "remoto" | "presencial";
 
 const timeSlots = [
   "00:00",

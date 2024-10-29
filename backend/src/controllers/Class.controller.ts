@@ -12,7 +12,7 @@ export class ClassController {
   // Crear una nueva clase
   reserveClass = async (req: Request, res: Response, next: NextFunction) => {
     const data: ReserveClassType = req.body;
-    const user = req.user;
+    const user = req.user as IUser;
 
     try {
       if (!user) {
@@ -30,7 +30,7 @@ export class ClassController {
   };
 
   getClasses = async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user;
+    const user = req.user as IUser;
 
     try {
       if (!user) {
@@ -48,7 +48,7 @@ export class ClassController {
   };
 
   getClass = async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user;
+    const user = req.user as IUser;
     const id = req.query.id?.toString();
 
     try {
@@ -72,7 +72,7 @@ export class ClassController {
 
   // Actualizar una clase
   blockDate = async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user;
+    const user = req.user as IUser;
     const data: BlockDateType = req.body;
 
     try {
@@ -91,7 +91,7 @@ export class ClassController {
   };
 
   updateClassStatus = async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user;
+    const user = req.user as IUser;
     const data: UpdateClassStatusType = req.body;
 
     try {

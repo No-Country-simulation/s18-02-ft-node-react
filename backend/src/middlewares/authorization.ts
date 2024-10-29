@@ -34,12 +34,14 @@ export const authPassport = async (req: Request, res: Response, next: NextFuncti
 export const authRole = (roleToValidate: string) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      if (!req.user) {
+      const user = req.user as IUser;
+
+      if (!user) {
         return next(new AuthenticationError("No se a podido identificar al usuario."));
       }
 
-      if (req.user.role !== roleToValidate) {
-        return next(new AuthorizationError(`Necesitas el role: ${req.user.role}`));
+      if (user.role !== roleToValidate) {
+        return next(new AuthorizationError(`Necesitas el role: ${user.role}`));
       }
 
       return next();
