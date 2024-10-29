@@ -3,52 +3,30 @@
 import { useState } from 'react'
 import { Button } from '../ui/button'
 import AvailabilityCard from './availability-card'
-
-const availabilityTimes: Array<TeacherUser['schedulePreferences']> = [
-  {
-    id: 'hola',
-    monday: [],
-    tuesday: ['10:00'],
-    wednesday: [],
-    thursday: [],
-    friday: [],
-    saturday: [],
-    sunday: []
-  }
-]
+import api from '@/lib/client/api'
 
 export default function AvailabilityManager ({ user }: { user: TeacherUser }) {
   const [edit, setEdit] = useState(false)
-  const [availabilities, setAvailabilities] = useState(availabilityTimes)
+  const [availability, setAvailability] = useState(user.schedulePreferences)
+
+  const handleClick = async () => {
+    try {
+      const data = await api.updatePreferences(availability)
+      console.log(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <>
       <section>
-        <ol className='grow space-y-6'>
-          {availabilities.map(availability => <AvailabilityCard
-            key={availability.id}
-            availability={availability}
-            edit={edit}
-            onChange={(days, schedules) => {
-              setAvailabilities(avs => avs.map(av => {
-                if (av.id === availability.id) {
-                  for (const day of days) {
-                    av[day as Exclude<keyof TeacherUser['schedulePreferences'], 'id'>] = schedules
-                  }
-                }
-
-                return av
-              }))
-            }}
-            deleteAvailability={() => { setAvailabilities(avs => avs.filter(av => av.id !== availability.id)) }}
-          />)}
-        </ol>
-        {edit && <Button
-          variant='outline'
-          className='w-full mt-6'
-          onClick={() => {
-            setAvailabilities(avs => [...avs, {
-              id: crypto.randomUUID(),
+        <AvailabilityCard
+          availability={availability}
+          edit={edit}
+          onChange={(days, schedules) => {
+            console.log('onChange', days, schedules)
+            const availabilityUpdated: Record<string, string[]> = {
               monday: [],
               tuesday: [],
               wednesday: [],
@@ -56,11 +34,18 @@ export default function AvailabilityManager ({ user }: { user: TeacherUser }) {
               friday: [],
               saturday: [],
               sunday: []
-            }])
+            }
+            for (const day of days) {
+              if (availabilityUpdated[day] !== undefined) {
+                availabilityUpdated[day] = schedules
+              }
+            }
+            setAvailability(av => ({
+              ...av,
+              ...availabilityUpdated
+            }))
           }}
-        >
-          Añadir nueva disponibilidad
-        </Button>}
+        />
       </section>
 
       <section className='flex gap-x-4'>
@@ -73,10 +58,7 @@ export default function AvailabilityManager ({ user }: { user: TeacherUser }) {
         <Button
           className='w-full'
           disabled={!edit}
-          onClick={() => {
-            setEdit(false)
-            console.log(availabilities)
-          }}
+          onClick={handleClick}
         >Confirmar</Button>
       </section>
     </>
