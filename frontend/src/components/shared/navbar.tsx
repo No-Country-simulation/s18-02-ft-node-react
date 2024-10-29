@@ -43,7 +43,7 @@ export default function Navbar () {
   }
 
   return (
-    <nav className='sticky bottom-0 flex py-4 px-8 justify-between bg-secondary'>
+    <nav className='sticky bottom-0 flex py-4 px-8 justify-between bg-secondary rounded-t-lg'>
       {links.map(link => {
         let active = false
 
@@ -57,7 +57,7 @@ export default function Navbar () {
           className='flex flex-col items-center gap-y-1 text-chart-3'
         >
           <span className={cn('bg-background p-3 rounded-md flex', active
-            ? 'bg-chart-3 text-primary'
+            ? 'bg-chart-3 text-background'
             : ''
           )}>
             <link.icon />

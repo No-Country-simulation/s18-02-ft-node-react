@@ -11,7 +11,7 @@ export default function SearchBar () {
 
   return (
     <form
-      className={'flex gap-x-2 px-5 py-8 ' + (loged ? 'bg-primary' : 'bg-secondary')}
+      className={'flex gap-x-2 px-5 py-8 ' + (loged ? 'bg-card' : 'bg-secondary')}
       onSubmit={e => {
         e.preventDefault()
         console.log('search')

@@ -14,7 +14,7 @@ export default function NotFound () {
           <p className='text-center text-muted-foreground text-pretty mt-4'>Lo sentimos, no encontramos la página que requieres, por favor regresa al home.</p>
         </div>
       </section>
-      <Link href="/" className={cn(buttonVariants({ variant: 'default' }), 'w-full mt-32')}>Ir al inicio</Link>
+      <Link href="/" className={cn(buttonVariants({ variant: 'default' }), 'w-full mt-32 font-semibold')}>Ir al inicio</Link>
     </main>
   )
 }

@@ -39,7 +39,7 @@ export default async function ProfilePage ({ params: { username } }: { params: {
               className='w-full flex justify-center items-center text-3xl font-bold'
             >{getNameInitials(user.name)}</AvatarFallback>
           </Avatar>
-          {isMyProfile && <button className='absolute right-0 bottom-0 bg-muted p-1 rounded-md'>
+          {isMyProfile && <button className='absolute right-0 bottom-0 bg-secondary p-1 rounded-md'>
             <PencilIcon />
           </button>}
         </div>

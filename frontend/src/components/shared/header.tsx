@@ -40,12 +40,12 @@ export default function Header () {
       <div className='flex gap-x-4'>
         <Button
           size='icon'
-          className='relative [&_svg]:size-5'
+          className='relative [&_svg]:size-5 bg-background'
         >
           <BellIcon className='text-muted' />
           <Badge
             variant='destructive'
-            className='absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 px-[7px] py-0.5 text-primary'
+            className='absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 px-[7px] py-0.5 text-background'
           >
             5
           </Badge>
