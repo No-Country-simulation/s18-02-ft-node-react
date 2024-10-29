@@ -12,7 +12,6 @@ import { Button } from '@/components/ui/button'
 import RatingStars from '@/components/rating-stars'
 
 export default async function ProfilePage ({ params: { username } }: { params: { username: string } }) {
-  console.log(username)
   const currentRes = await api.current()
   const sessionUser = currentRes.payload
   console.log('Session user: ', sessionUser)

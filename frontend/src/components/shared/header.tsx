@@ -12,12 +12,28 @@ import Link from 'next/link'
 import LogoIcon from '@/icons/logo'
 import TeachAppIcon from '@/icons/teach-app'
 
+// Mi perfil, Perfil, Mis clases, Mis profesores, Mis alumnos, Reserva una clase, Mi agenda, Mi clase, Elige un día
+
 export default function Header () {
   const pathname = usePathname()
   const sessionUser = useSessionStore(store => store.user)
 
   const onBack = () => {
     if (typeof window !== 'undefined') window.history.back()
+  }
+
+  const getName = () => {
+    if (pathname.includes('/profile')) {
+      if (sessionUser?.username !== undefined && pathname.includes(sessionUser.username)) {
+        return 'Mi perfil'
+      } else {
+        return 'Perfil'
+      }
+    }
+
+    if (pathname.includes('agenda')) return 'Mi agenda'
+
+    return 'Nombrando...'
   }
 
   return (
@@ -33,7 +49,7 @@ export default function Header () {
         </>
           : <>
           <LeftArroowIcon className='size-8' />
-          <h2 className='font-semibold'>Mi perfil</h2>
+          <h2 className='font-semibold'>{getName()}</h2>
         </>}
       </div>
 
