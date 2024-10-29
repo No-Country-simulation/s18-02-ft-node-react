@@ -70,6 +70,12 @@ export function createApiMethods (axiosInstance: AxiosInstance, getToken: () => 
     },
     async updateProfile (data: UpdateProfileSchema & { username: string }): Promise<BaseResponse<User>> {
       return axiosInstance.put('user/profile', data)
+    },
+    async updatePreferences (data: TeacherUser['schedulePreferences']): Promise<{
+      status: string
+      message: string
+    }> {
+      return axiosInstance.put('user/preferences', data)
     }
   }
 }
