@@ -86,7 +86,7 @@ export default async function Home () {
         {sessionUser?.role === 'teacher' && <>
           <section className='pt-6 px-5 flex gap-x-4'>
             <article className='bg-secondary rounded-lg p-4 space-y-3'>
-              <strong>Clases reservadas</strong>
+              <strong className='text-muted-foreground'>Clases reservadas</strong>
               <div className='flex justify-between items-center'>
                 <span className='text-5xl font-bold'>43</span>
                 <Badge
@@ -96,14 +96,14 @@ export default async function Home () {
               </div>
               <span className='block text-sm'>vs Agosto, 2024</span>
             </article>
-            <article className='bg-muted rounded-lg p-4 space-y-3'>
+            <article className='bg-muted rounded-lg p-4 space-y-3 text-background'>
               <strong>Clases canceladas</strong>
               <div className='flex justify-between items-center'>
                 <span className='text-5xl font-bold'>03</span>
                 <Badge
                   variant='outline'
                   className='px-3 py-2 rounded-md border-foreground'
-                ><TrendingDownIcon className='mr-2'/> 5%</Badge>
+                ><TrendingDownIcon className='mr-2 size-4'/> 5%</Badge>
               </div>
               <span className='block text-sm'>vs Agosto, 2024</span>
             </article>
@@ -139,7 +139,7 @@ export default async function Home () {
         </section>}
 
         {loged || <section className='py-8 px-12 bg-foreground flex flex-col items-center gap-y-5'>
-          <p className='text-primary text-center text-pretty'>Únete a nuestra comunidad de profesores particulares y conecta con alumnos que buscan mejorar en tus materias. Regístrate ahora, establece tu propio horario.</p>
+          <p className='text-background text-center text-pretty'>Únete a nuestra comunidad de profesores particulares y conecta con alumnos que buscan mejorar en tus materias. Regístrate ahora, establece tu propio horario.</p>
           <Link
             href='/register'
             className={cn(buttonVariants(), 'max-w-40 w-full')}

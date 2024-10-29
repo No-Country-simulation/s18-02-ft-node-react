@@ -45,7 +45,7 @@ export default function LoginForm () {
         <div>
           <h1 className='font-bold text-lg'>Iniciar sesión</h1>
           <FormDescription>
-            Bienvenido inicia sesion para utilizar la plataforma.
+            Ingresa tu casilla de correo y contraseña de usuario. Si aún no te registraste, ¡te invitamos a hacerlo!
           </FormDescription>
         </div>
 
@@ -83,12 +83,12 @@ export default function LoginForm () {
 
         <div className='space-y-4'>
           <Button
-            className='w-full'
+            className='w-full font-semibold'
             type='submit'
           >Iniciar Sesión</Button>
           <Link
             href='/register'
-            className={cn(buttonVariants({ variant: 'outline' }), 'w-full')}
+            className={cn(buttonVariants({ variant: 'outline' }), 'w-full font-semibold')}
           >Regístrate</Link>
         </div>
       </form>

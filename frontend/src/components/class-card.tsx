@@ -27,7 +27,7 @@ export default function ClassCard ({ nextClass, sessionUser }: {
             variant='outline'
             className='rounded-sm py-1'
           >{nextClass.subject}</Badge>
-          : <Badge className='p-2 rounded-md text-green-500 border-green-500'>
+          : <Badge className='p-2 rounded-md text-green-500 border-green-500 bg-card'>
             <CheckCircleIcon />
           </Badge>
         }

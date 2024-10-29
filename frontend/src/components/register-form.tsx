@@ -127,7 +127,7 @@ export default function RegisterForm () {
           </fieldset>
 
           <Button
-            className='w-full'
+            className='w-full font-semibold'
             type='submit'
           >Confirmar registro</Button>
         </form>

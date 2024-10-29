@@ -54,7 +54,7 @@ export default function Navbar () {
           className='flex flex-col items-center gap-y-1 text-chart-3'
         >
           <span className={cn('bg-background p-3 rounded-md flex', active
-            ? 'bg-chart-3 text-primary'
+            ? 'bg-chart-3 text-background'
             : ''
           )}>
             <link.icon />

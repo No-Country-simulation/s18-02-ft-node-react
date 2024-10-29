@@ -26,7 +26,7 @@ export default function AvailabilityCard ({ availability, edit, onChange, delete
 
   return (
     <li
-      className='py-6 px-4 bg-background border rounded-md space-y-4'
+      className='py-6 px-4 bg-card border rounded-md space-y-4'
     >
       <section>
         <strong>Dias de la semana</strong>
@@ -34,9 +34,9 @@ export default function AvailabilityCard ({ availability, edit, onChange, delete
           {days.map(day => {
             return <Button
               key={day}
-              className='py-1 px-2'
+              className='py-1 px-2 disabled:bg-muted'
               variant={selectedDays.includes(day) ? 'default' : 'outline'}
-              disabled={!edit}
+              disabled={!edit && selectedDays.includes(day)}
               onClick={() => {
                 let updatedSelectedDays
 
@@ -60,9 +60,9 @@ export default function AvailabilityCard ({ availability, edit, onChange, delete
           {schedules.map(schedule => {
             return <Button
               key={schedule}
-              className='py-1 px-2'
+              className='py-1 px-2 disabled:bg-muted'
               variant={selectedSchedules.includes(schedule) ? 'default' : 'outline'}
-              disabled={!edit}
+              disabled={!edit && selectedSchedules.includes(schedule)}
               onClick={() => {
                 let updatedSelectedSchedules
 
