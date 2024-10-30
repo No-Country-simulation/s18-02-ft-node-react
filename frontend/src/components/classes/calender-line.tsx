@@ -66,7 +66,7 @@ export default function CalenderLine () {
             ))}
           </div>
           <div className="flex justify-center items-center w-72 h-9 ">
-            <div className="flex m-0 items-center border-2 justify-center bg-white w-72 h-9 rounded-lg">
+            <div className="flex m-0 items-center border-2 justify-center bg-card w-72 h-9 rounded-lg">
               {/* Botón de días anteriores */}
               <button
                 onClick={prevDay}
@@ -80,7 +80,7 @@ export default function CalenderLine () {
                 {daysOfWeek.map((day, index) => (
                   <div
                     key={index}
-                    className={`w-8 h-8 rounded-lg flex justify-center items-center ${isToday(day) ? 'bg-black text-white' : 'bg-white'} border-gray-300`}
+                    className={`w-8 h-8 rounded-lg flex justify-center items-center font-semibold ${isToday(day) ? 'bg-primary text-card' : ''} border-none`}
                   >
                     <div className="text-xs text[#263238]">{formatDate(day)}</div>
                   </div>

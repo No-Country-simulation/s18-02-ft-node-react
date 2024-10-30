@@ -13,6 +13,7 @@ export default function AvailabilityManager ({ user }: { user: TeacherUser }) {
     try {
       const data = await api.updatePreferences(availability)
       console.log(data)
+      setEdit(false)
     } catch (error) {
       console.error(error)
     }
