@@ -1,5 +1,16 @@
-export default function ClassesPage () {
+"use client";
+import CalenderLine from "@/components/calenderLine/calender-line";
+import ListClass from "@/components/listClass/list-class";
+
+export default function ClassesPage() {
+
   return (
-    <h1>Classes</h1>
+    <>
+      <section className="bg-[#F9F9F9] flex-1 font-semibold text-sm">
+        <CalenderLine />
+
+        <ListClass />
+      </section>
+    </>
   )
 }
