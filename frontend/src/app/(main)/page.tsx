@@ -154,18 +154,6 @@ export default async function Home () {
           </ul>
         </section>}
 
-        {loged && <section className='px-5 py-8 bg-secondary space-y-6'>
-          <h2 className='text-2xl font-bold'>Mis profesores recientes</h2>
-          <ul className='space-y-2'>
-            <li>
-              <RecentTeacherCard />
-            </li>
-            <li>
-              <RecentTeacherCard />
-            </li>
-          </ul>
-        </section>}
-
         {loged || <section className='px-5 py-8 space-y-6'>
           <h2 className='text-2xl font-bold text-center'>Preguntas frecuentes</h2>
           <Faq />
