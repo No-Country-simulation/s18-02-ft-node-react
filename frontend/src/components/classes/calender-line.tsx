@@ -2,11 +2,13 @@
 
 import NextButtonIcon from '@/icons/next-button-icon'
 import PrevButtonIcon from '@/icons/prev-button-icon'
+import { useSessionStore } from '@/stores/session'
 import { useState } from 'react'
 
 export default function CalenderLine () {
   const [currentDate, setCurrentDate] = useState<Date>(new Date())
   const [classTypes, setClassType] = useState('next')
+  const isStudent = useSessionStore(store => store.user?.role === 'student')
 
   function isToday (classDate: Date): boolean {
     return (
@@ -96,7 +98,7 @@ export default function CalenderLine () {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center">
+      {isStudent && <div className="flex justify-center items-center">
         <div className="flex justify-center w-72 h-8 rounded m-6 text-[12px] text-muted-foreground bg-border">
           <div className="flex justify-center items-center w-44">
             <button
@@ -115,7 +117,7 @@ export default function CalenderLine () {
             </button>
           </div>
         </div>
-      </div>
+      </div>}
     </>
   )
 }
