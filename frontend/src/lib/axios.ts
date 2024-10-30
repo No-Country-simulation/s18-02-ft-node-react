@@ -76,6 +76,30 @@ export function createApiMethods (axiosInstance: AxiosInstance, getToken: () => 
       message: string
     }> {
       return axiosInstance.put('user/preferences', data)
+    },
+    async getTeachers (): Promise<{
+      status: string
+      message: string
+      payload: {
+        docs: Array<{
+          _id: string
+          name: string
+          username: string
+          avatar: string
+          subjects: string[]
+        }>
+      }
+      totalDocs: number
+      limit: number
+      totalPages: number
+      page: number
+      pagingCounter: number
+      hasPrevPage: boolean
+      hasNextPage: boolean
+      prevPage: number | null
+      nextPage: number | null
+    }> {
+      return axiosInstance.get('user')
     }
   }
 }
