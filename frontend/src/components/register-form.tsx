@@ -13,7 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import api from '@/lib/client/api'
->>>>>>> dev
+import { VerifyEmail } from './modals/verify-email'
 
 export default function RegisterForm () {
   const [userRole, setUserRole] = useState<User['role']>('student')

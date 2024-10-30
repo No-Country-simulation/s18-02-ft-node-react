@@ -34,13 +34,16 @@ export default function Navbar () {
     }
   ]
 
-export default function Navbar () {
-  const sessionUser = useSessionStore(store => store.user)
+  if (isTeacher) {
+    links.splice(1, 0, {
+      path: '/agenda',
+      name: 'Agenda',
+      icon: CalendarIcon
+    })
+  }
 
-  return sessionUser === undefined
-    ? null
-    : (
-    <nav className='sticky bottom-0 flex py-4 px-8 justify-between bg-secondary'>
+  return (
+    <nav className='sticky bottom-0 flex py-4 px-8 justify-between bg-secondary rounded-t-lg'>
       {links.map(link => {
         let active = false
 
