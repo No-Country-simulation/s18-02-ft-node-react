@@ -1,16 +1,16 @@
-"use client";
-import CalenderLine from "@/components/calenderLine/calender-line";
-import ListClass from "@/components/listClass/list-class";
+import CalenderLine from '@/components/classes/calender-line'
+import ListClass from '@/components/classes/list-class'
+import api from '@/lib/server/api'
 
-export default function ClassesPage() {
+export default async function ClassesPage () {
+  const currentRes = await api.current()
+  const sessionUser = currentRes.payload
 
   return (
-    <>
-      <section className="bg-[#F9F9F9] flex-1 font-semibold text-sm">
-        <CalenderLine />
+    <main className='flex-1 py-6 px-5 space-y-6'>
+     {sessionUser.role === 'teacher' && <CalenderLine />}
 
-        <ListClass />
-      </section>
-    </>
+      <ListClass userRole={sessionUser.role} />
+    </main>
   )
 }

@@ -32,6 +32,10 @@ export default function Header () {
     }
 
     if (pathname.includes('agenda')) return 'Mi agenda'
+    if (pathname.includes('classes')) return 'Mis clases'
+    if (pathname.includes('teachers')) return 'Mis profesores'
+    if (pathname.includes('students')) return 'Mis alumnos'
+    if (pathname.includes('reserve')) return 'Reserva una clase'
 
     return 'Nombrando...'
   }
@@ -61,7 +65,7 @@ export default function Header () {
           <BellIcon className='text-muted' />
           <Badge
             variant='destructive'
-            className='absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 px-[7px] py-0.5 text-background'
+            className='absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 px-[7px] py-0.5 text-white'
           >
             5
           </Badge>
