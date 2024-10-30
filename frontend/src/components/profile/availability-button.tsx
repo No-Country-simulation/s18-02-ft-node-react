@@ -9,7 +9,16 @@ export default function AvailabilityButton ({ children, edit, selected, onClick 
 }) {
   return (
     <Button
-      className={cn('font-bold border py-1 px-2', selected ? 'text-white' : '', selected ? edit ? 'bg-chart-3' : 'bg-muted-foreground' : '')}
+      className={cn('font-bold border py-1 px-2', selected
+        ? 'text-white'
+        : '', selected
+        ? edit
+          ? 'bg-chart-3'
+          : 'bg-muted-foreground'
+        : edit
+          ? ''
+          : 'hover:bg-background'
+      )}
       variant={selected ? 'default' : 'outline'}
       onClick={edit ? onClick : undefined}
     >
