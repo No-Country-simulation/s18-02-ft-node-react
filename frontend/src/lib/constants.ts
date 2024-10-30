@@ -16,7 +16,17 @@ export const TEACHERS: TeacherUser[] = [
     updatedAt: '2024-10-12T23:12:40.843Z',
     birthday: null,
     classMode: 'remoto',
-    classPrice: null
+    classPrice: null,
+    schedulePreferences: {
+      monday: ['08:00', '10:00', '09:00'],
+      tuesday: [],
+      wednesday: [],
+      thursday: [],
+      friday: [],
+      saturday: [],
+      sunday: [],
+      id: '671a93231e160bc6d85aadd848'
+    }
   },
   {
     id: 'asd0-hjose3ola-23',
@@ -31,7 +41,17 @@ export const TEACHERS: TeacherUser[] = [
     updatedAt: '2024-10-16T23:08:09.684Z',
     birthday: null,
     classMode: 'presencial',
-    classPrice: null
+    classPrice: null,
+    schedulePreferences: {
+      monday: [],
+      tuesday: [],
+      wednesday: [],
+      thursday: [],
+      friday: [],
+      saturday: [],
+      sunday: [],
+      id: '671a9160bc6d85aadd848'
+    }
   }
 ]
 
