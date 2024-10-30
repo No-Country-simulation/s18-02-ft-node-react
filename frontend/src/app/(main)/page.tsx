@@ -1,4 +1,3 @@
-import TeacherCard from '@/components/teacher-card'
 import CommentCard from '@/components/comment-card'
 import { Faq } from '@/components/faq'
 import SearchBar from '@/components/search-bar'
@@ -15,6 +14,7 @@ import { Badge } from '@/components/ui/badge'
 import TrendingUpIcon from '@/icons/trending-up'
 import TrendingDownIcon from '@/icons/trending-down'
 import ClassChart from '@/components/class-chart'
+import RecommendedClasses from '@/components/shared/recommended-classes'
 
 export default async function Home () {
   let sessionUser: SessionUser | undefined
@@ -119,24 +119,7 @@ export default async function Home () {
           </section>
         </>}
 
-        {sessionUser?.role !== 'teacher' && <section className={cn('px-5 py-6', loged ? 'pb-0' : '')}>
-          <h2 className={cn('font-bold text-2xl', loged ? '' : 'text-center')}>Clases recomendadas</h2>
-          <Carousel
-            opts={{
-              align: 'start'
-            }}
-          >
-            <CarouselContent className='gap-x-2 -ml-2 mt-4'>
-              {TEACHERS.map(teacher => <CarouselItem
-                key={teacher.id}
-                className='carouselItem max-w-sm pl-2 basis-auto'
-              >
-                <TeacherCard teacher={teacher}/>
-              </CarouselItem>)}
-            </CarouselContent>
-          </Carousel>
-          {loged && <Button className='w-full mt-6'>Reserver una clase</Button>}
-        </section>}
+        {sessionUser?.role !== 'teacher' && <RecommendedClasses loged={loged}/>}
 
         {loged || <section className='py-8 px-12 bg-foreground flex flex-col items-center gap-y-5'>
           <p className='text-background text-center text-pretty'>Únete a nuestra comunidad de profesores particulares y conecta con alumnos que buscan mejorar en tus materias. Regístrate ahora, establece tu propio horario.</p>
