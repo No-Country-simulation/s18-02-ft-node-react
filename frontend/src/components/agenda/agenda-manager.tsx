@@ -18,7 +18,7 @@ export function AgendaManager ({ availability }: {
     month: 'long'
   }).format(date)
   const [edit, setEdit] = useState(false)
-  const [selectedSchedules, setSelectedSchedules] = useState<string[]>(Object.entries(availability)
+  const [selectedSchedules] = useState<string[]>(Object.entries(availability)
     .find(([key, value]) => typeof value === 'object' && value.length > 0)?.[1] as string[] ?? []
   )
 
