@@ -95,20 +95,20 @@ body {
     --chart-4: #E8C468;
     --chart-5: #F4A462;
   }
-  .dasrk {
+  .dark {
     --background: #0B1116;
     --foreground: #FFFFFF;
     --card: #16212C;
     --card-foreground: #fff;
     --popover: #16212C;
     --popover-foreground: #AFBAC5;
-    --primary: #16212C;
-    --primary-foreground: #fff;
+    --primary: #6CC99C;
+    --primary-foreground: #0B1116;
     --secondary: #2C4258;
     --secondary-foreground: #fff;
     --muted: #37536E;
     --muted-foreground: #AFBAC5;
-    --accent: #7BAF96;
+    --accent: #6CC99C;
     --accent-foreground: #0B1116;
     --destructive: #E84E4E;
     --destructive-foreground: #0B1116;
