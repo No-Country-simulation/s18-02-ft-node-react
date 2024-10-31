@@ -18,6 +18,7 @@ export function createApiMethods (axiosInstance: AxiosInstance, getToken: () => 
   axiosInstance.defaults.headers.get['Content-Type'] = 'application/json'
   axiosInstance.defaults.headers.post['Content-Type'] = 'application/json'
   axiosInstance.defaults.headers.put['Content-Type'] = 'application/json'
+  axiosInstance.defaults.timeout = 60_000
 
   axiosInstance.interceptors.request.use(config => {
     // console.log('Axios request')
