@@ -2,9 +2,11 @@
 
 import { Calendar } from '@/components/ui/calendar'
 import { useState } from 'react'
-import { Button } from '../ui/button'
+import { Button, buttonVariants } from '../ui/button'
 import { cn } from '@/lib/utils'
 import XIcon from '@/icons/x'
+import { useSessionStore } from '@/stores/session'
+import Link from 'next/link'
 
 export function ClassScheduleManager ({ availability, schedules }: {
   availability: TeacherUser['schedulePreferences']
@@ -21,6 +23,7 @@ export function ClassScheduleManager ({ availability, schedules }: {
     .find(([key, value]) => typeof value === 'object' && value.length > 0)?.[1] as string[] ?? []
   )
   const [schedulesEdited, setSchedulesEdited] = useState<string[]>(schedules)
+  const sessionUser = useSessionStore(store => store.user)
 
   const handleClick = () => {
     setEdit(false)
@@ -57,10 +60,15 @@ export function ClassScheduleManager ({ availability, schedules }: {
         </ol>
       </section>
 
+      {(sessionUser?.role === 'teacher' && edit) && <Link
+        href={`/profile/${sessionUser.username}/availability`}
+        className={cn(buttonVariants({ variant: 'outline' }), 'border-primary w-full')}
+      >Configurar tus horarios del mes</Link>}
+
       <section className='flex gap-x-4'>
         <Button
           variant='outline'
-          className='w-full'
+          className='w-full border-primary'
           disabled={edit}
           onClick={() => { setEdit(true) }}
         >Editar</Button>

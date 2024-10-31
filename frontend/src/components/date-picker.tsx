@@ -33,7 +33,7 @@ export default function DatePicker ({ onChange, defaultValue }: {
         <Button
           variant={'outline'}
           className={cn(
-            'w-full justify-start text-left font-normal flex',
+            'w-full justify-start text-left font-normal flex border-input hover:bg-transparent hover:text-foreground',
             date === undefined && 'text-muted-foreground'
           )}
         >

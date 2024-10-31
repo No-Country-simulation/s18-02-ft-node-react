@@ -26,7 +26,6 @@ export default function AvailabilityManager ({ user }: { user: TeacherUser }) {
           availability={availability}
           edit={edit}
           onChange={(days, schedules) => {
-            console.log('onChange', days, schedules)
             const availabilityUpdated: Record<string, string[]> = {
               monday: [],
               tuesday: [],
@@ -52,7 +51,7 @@ export default function AvailabilityManager ({ user }: { user: TeacherUser }) {
       <section className='flex gap-x-4'>
         <Button
           variant='outline'
-          className='w-full'
+          className='w-full border-primary'
           disabled={edit}
           onClick={() => { setEdit(true) }}
         >Editar</Button>

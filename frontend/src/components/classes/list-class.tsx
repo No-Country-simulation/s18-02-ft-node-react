@@ -64,7 +64,7 @@ export default function ListClass ({ userRole }: { userRole: User['role'] }) {
         {clases.map((alumno) => (
           <li
             onClick={() => { handleSelect(alumno.id) }}
-            className="max-w-sm flex rounded-md w-full bg-secondary"
+            className="flex rounded-md w-full bg-secondary"
             key={alumno.id}
           >
             <p className="flex fton-semibold p-4 justify-center items-center rounded-l-md">{alumno.hora}</p>

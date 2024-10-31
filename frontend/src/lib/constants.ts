@@ -4,44 +4,17 @@ export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:2004
 
 export const TEACHERS: TeacherUser[] = [
   {
-    id: 'asd0-hola-23',
-    name: 'Maria Sosa',
-    email: 'mariaSosa@gmail.com',
-    username: 'MarS',
+    id: '67226796b8b5e122f49d21db',
+    name: 'Sta. Andrea Cortéz Ríos',
+    username: 'sta..andrea583',
+    email: 'MariadelosAngeles.ArevaloArmenta@yahoo.com',
     role: 'teacher',
-    avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
-    subjects: ['Matemática', 'Química', 'Física'],
-    description: 'Descripcion del profesor que tiene muchas materias. Para mostrar en la tarjeta',
-    createdAt: '2024-10-12T23:12:40.843Z',
-    updatedAt: '2024-10-12T23:12:40.843Z',
-    birthday: null,
+    avatar: 'https://avatars.githubusercontent.com/u/48159567',
+    subjects: ['Filosofía', 'Psicología'],
+    description: 'Soy un profesor apasionado por la educación, con más de 10 años de exp…',
+    birthday: '1988-12-07T05:47:22.618+00:00',
+    classPrice: 10065,
     classMode: 'remoto',
-    classPrice: null,
-    schedulePreferences: {
-      monday: ['08:00', '10:00', '09:00'],
-      tuesday: [],
-      wednesday: [],
-      thursday: [],
-      friday: [],
-      saturday: [],
-      sunday: [],
-      id: '671a93231e160bc6d85aadd848'
-    }
-  },
-  {
-    id: 'asd0-hjose3ola-23',
-    name: 'Jose Martin Moles',
-    email: 'mariaSosa@gmail.com',
-    username: 'jose2',
-    role: 'teacher',
-    avatar: 'https://randomuser.me/api/portraits/men/69.jpg',
-    subjects: ['Química'],
-    description: 'Descripcion del profesor que tiene muchas materias. Para mostrar en la tarjeta',
-    createdAt: '2024-10-16T23:08:09.684Z',
-    updatedAt: '2024-10-16T23:08:09.684Z',
-    birthday: null,
-    classMode: 'presencial',
-    classPrice: null,
     schedulePreferences: {
       monday: [],
       tuesday: [],
@@ -50,8 +23,60 @@ export const TEACHERS: TeacherUser[] = [
       friday: [],
       saturday: [],
       sunday: [],
-      id: '671a9160bc6d85aadd848'
-    }
+      id: '671a9160bc6d8asd5aadd848'
+    },
+    createdAt: '2024-10-30T17:06:30.696+00:00',
+    updatedAt: '2024-10-30T17:06:30.696+00:00'
+  },
+  {
+    id: '67226796b8b5e122f49d21de',
+    name: 'Miguel Salcido Farías',
+    username: 'miguel.salcido820',
+    email: 'Alberto_FariasAlcala9@gmail.com',
+    role: 'teacher',
+    avatar: 'https://avatars.githubusercontent.com/u/83872662',
+    subjects: ['Geografía', 'Psicología'],
+    description: 'Soy un profesor apasionado por la educación, con más de 10 años de exp…',
+    birthday: '1971-08-13T13:00:54.533+00:00',
+    classPrice: 6059,
+    classMode: 'remoto',
+    schedulePreferences: {
+      monday: [],
+      tuesday: [],
+      wednesday: [],
+      thursday: [],
+      friday: [],
+      saturday: [],
+      sunday: [],
+      id: '67160bc6d8asd5aadd848'
+    },
+    createdAt: '2024-10-30T17:06:30.697+00:00',
+    updatedAt: '2024-10-30T17:06:30.697+00:00'
+  },
+  {
+    id: '67226796b8b5e122f49d21e1',
+    name: 'Daniel Iglesias Galván',
+    username: 'daniel.iglesias902',
+    email: 'Rosario_FierroGamboa61@gmail.com',
+    role: 'teacher',
+    avatar: 'https://avatars.githubusercontent.com/u/82117502',
+    subjects: ['Química'],
+    description: 'Soy un profesor apasionado por la educación, con más de 10 años de exp…',
+    birthday: '1993-04-13T01:15:39.593+00:00',
+    classPrice: 6120,
+    classMode: 'remoto',
+    schedulePreferences: {
+      monday: [],
+      tuesday: [],
+      wednesday: [],
+      thursday: [],
+      friday: [],
+      saturday: [],
+      sunday: [],
+      id: '6716d8asd5aadd848'
+    },
+    createdAt: '2024-10-30T17:06:30.697+00:00',
+    updatedAt: '2024-10-30T17:06:30.697+00:00'
   }
 ]
 

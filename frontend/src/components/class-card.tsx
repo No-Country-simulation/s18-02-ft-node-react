@@ -33,7 +33,7 @@ export default function ClassCard ({ nextClass, sessionUser }: {
         }
       </CardHeader>
       <CardFooter className='px-4 pb-4'>
-        <Button className='w-full' variant='outline'>Cancelar</Button>
+        <Button className='w-full  border-primary bg-transparent' variant='outline'>Cancelar</Button>
       </CardFooter>
     </Card>
   )
