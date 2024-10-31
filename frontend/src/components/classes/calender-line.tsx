@@ -53,7 +53,7 @@ export default function CalenderLine () {
   return (
     <>
       <div className="">
-        <h2 className="pl-4 pt-6 text-2xl font-semibold"> {currentDayOfWeek} {currentDayOfMonth} de {currentMonth} </h2>
+        <h2 className="text-2xl font-semibold"> {currentDayOfWeek} {currentDayOfMonth} de {currentMonth} </h2>
 
         <div className="flex justify-center items-center m-6 flex-col">
           <div className="flex space-x-10 m-2">

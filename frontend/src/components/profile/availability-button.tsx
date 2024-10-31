@@ -14,10 +14,10 @@ export default function AvailabilityButton ({ children, edit, selected, onClick 
         : '', selected
         ? edit
           ? 'bg-chart-3'
-          : 'bg-muted-foreground'
+          : 'bg-muted-foreground text-background'
         : edit
           ? ''
-          : 'hover:bg-background'
+          : 'hover:bg-background hover:text-foreground'
       )}
       variant={selected ? 'default' : 'outline'}
       onClick={edit ? onClick : undefined}

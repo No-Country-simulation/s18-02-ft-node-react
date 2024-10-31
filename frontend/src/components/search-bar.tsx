@@ -21,7 +21,7 @@ export default function SearchBar () {
       <Button size='icon' className='p-3'>
         <SearchIcon />
       </Button>
-      <Button size='icon' variant='outline' className='p-3 bg-transparent'>
+      <Button size='icon' variant='outline' className='p-3 bg-transparent border-primary'>
         <AdjustmentsIcon />
       </Button>
     </form>

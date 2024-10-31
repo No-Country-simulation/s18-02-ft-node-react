@@ -31,32 +31,32 @@ export default async function Home () {
 
   return (<>
       <main>
-        {loged || <section className='p-5'>
-          <h1 className='text-3xl font-bold'>Todas tus clases particulares en un solo lugar.</h1>
+        {loged || <section className='p-5 bg-white'>
+          <h1 className='text-3xl font-bold text-black'>Todas tus clases particulares en un solo lugar.</h1>
           <img src="/images/class.png" alt="class image" />
         </section>}
 
         <SearchBar />
 
-        {loged || <section className='px-5 py-8 flex flex-col items-center gap-y-6'>
+        {loged || <section className='px-5 py-8 flex flex-col items-center gap-y-6 bg-card'>
           <h2 className='text-2xl font-bold h3'>Como funciona</h2>
           <ul className='flex flex-col items-center gap-y-6'>
             <article>
-              <div className='relative p-4 rounded-md max-w-[300px] bg-gray-300'>
+              <div className='relative p-4 rounded-md max-w-[300px] bg-border'>
                 <img src='/images/student.png' alt='Student image' />
                 <span className='absolute block bg-foreground text-background px-3 font-bolde text-3xl rounded-md bottom-0 right-1/2 translate-x-1/2 translate-y-1/2'>1</span>
               </div>
               <h3 className='text-xl font-semibold text-center mt-8'>Elige la materia</h3>
             </article>
             <article>
-              <div className='relative p-4 rounded-md max-w-[300px] bg-gray-300'>
+              <div className='relative p-4 rounded-md max-w-[300px] bg-border'>
                 <img src='/images/student.png' alt='Student image' />
                 <span className='absolute block bg-foreground text-background px-3 font-bolde text-3xl rounded-md bottom-0 right-1/2 translate-x-1/2 translate-y-1/2'>2</span>
               </div>
               <h3 className='text-xl font-semibold text-center mt-8'>Busca tu profesor particular</h3>
             </article>
             <article>
-              <div className='relative p-4 rounded-md max-w-[300px] bg-gray-300'>
+              <div className='relative p-4 rounded-md max-w-[300px] bg-border'>
                 <img src='/images/student.png' alt='Student image' />
                 <span className='absolute block bg-foreground text-background px-3 font-bolde text-3xl rounded-md bottom-0 right-1/2 translate-x-1/2 translate-y-1/2'>3</span>
               </div>
@@ -112,10 +112,10 @@ export default async function Home () {
           <section className='px-5 py-6 pb-0'>
             <h2 className='font-bold text-2xl mb-4'>Mi rendimiento anual</h2>
             <ClassChart />
-            <Button
-              variant='outline'
-              className='w-full mt-4'
-            >Configurar tus horarios del mes</Button>
+            <Link
+              href={`/profile/${sessionUser.username}/availability`}
+              className={cn(buttonVariants({ variant: 'outline' }), 'border-primary w-full mt-4')}
+            >Configurar tus horarios del mes</Link>
           </section>
         </>}
 
