@@ -8,9 +8,9 @@ export default function TeacherCard ({ teacher }: { teacher: TeacherUser }) {
   return (
     <Link href={`/profile/${teacher.username}`}>
       <Card className='max-w-sm rounded-lg'>
-        {teacher.avatar !== undefined && <img className='rounded-lg w-full' src={teacher.avatar} alt={`Avatar of ${teacher.username}`} />}
-        <CardHeader className='flex-row justify-between items-center p-4'>
-          <CardTitle>Card Title</CardTitle>
+        {teacher.avatar !== undefined && <img className='rounded-lg w-full' src={teacher.avatar} alt={`Avatar of ${teacher.username}`}/>}
+        <CardHeader className='flex-row justify-between items-center p-4 gap-x-2'>
+          <CardTitle>{teacher.name}</CardTitle>
           <RatingStars rating={3.5} />
         </CardHeader>
         <CardContent className='space-y-4 px-4 py-0'>

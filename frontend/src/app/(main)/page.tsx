@@ -6,7 +6,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import { COMMENTS, NEXT_CLASSES, TEACHERS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import ClassCard from '@/components/class-card'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import api from '@/lib/server/api'
 import Link from 'next/link'
 import UserCard from '@/components/user-card'
@@ -15,6 +15,8 @@ import TrendingUpIcon from '@/icons/trending-up'
 import TrendingDownIcon from '@/icons/trending-down'
 import ClassChart from '@/components/class-chart'
 import RecommendedClasses from '@/components/shared/recommended-classes'
+
+export const dynamic = 'force-dynamic'
 
 export default async function Home () {
   let sessionUser: SessionUser | undefined
@@ -33,7 +35,7 @@ export default async function Home () {
       <main>
         {loged || <section className='p-5 bg-white'>
           <h1 className='text-3xl font-bold text-black'>Todas tus clases particulares en un solo lugar.</h1>
-          <img src="/images/class.png" alt="class image" />
+          <img src="/images/class.png" alt="class image"/>
         </section>}
 
         <SearchBar />
@@ -43,21 +45,21 @@ export default async function Home () {
           <ul className='flex flex-col items-center gap-y-6'>
             <article>
               <div className='relative p-4 rounded-md max-w-[300px] bg-border'>
-                <img src='/images/student.png' alt='Student image' />
+                <img src='/images/student.png' alt='Student image'/>
                 <span className='absolute block bg-foreground text-background px-3 font-bolde text-3xl rounded-md bottom-0 right-1/2 translate-x-1/2 translate-y-1/2'>1</span>
               </div>
               <h3 className='text-xl font-semibold text-center mt-8'>Elige la materia</h3>
             </article>
             <article>
               <div className='relative p-4 rounded-md max-w-[300px] bg-border'>
-                <img src='/images/student.png' alt='Student image' />
+                <img src='/images/student.png' alt='Student image'/>
                 <span className='absolute block bg-foreground text-background px-3 font-bolde text-3xl rounded-md bottom-0 right-1/2 translate-x-1/2 translate-y-1/2'>2</span>
               </div>
               <h3 className='text-xl font-semibold text-center mt-8'>Busca tu profesor particular</h3>
             </article>
             <article>
               <div className='relative p-4 rounded-md max-w-[300px] bg-border'>
-                <img src='/images/student.png' alt='Student image' />
+                <img src='/images/student.png' alt='Student image'/>
                 <span className='absolute block bg-foreground text-background px-3 font-bolde text-3xl rounded-md bottom-0 right-1/2 translate-x-1/2 translate-y-1/2'>3</span>
               </div>
               <h3 className='text-xl font-semibold text-center mt-8'>Agenda una clase</h3>
