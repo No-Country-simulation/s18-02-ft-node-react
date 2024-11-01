@@ -1,5 +1,5 @@
 export function setTokenFromClient (token: string) {
-  document.cookie = `token=${token}; secure; samesite=strict`
+  document.cookie = `token=${token}`
 }
 
 export function getTokenFromClient () {
