@@ -9,11 +9,14 @@ import { InternalServerError } from "../utils/errors/InternalServerError";
 const userRepository = new UserRepository();
 
 export const authPassport = async (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.headers)
   passport.authenticate("jwt", (error: any, user: IUser, info: any) => {
     try {
       if (error) {
         return next(new InternalServerError());
       }
+
+      console.log('authorization authPassport ', user)
 
       if (!user) {
         return next(new AuthenticationError("No se a podido identificar al usuario."));
@@ -35,6 +38,8 @@ export const authRole = (roleToValidate: string) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = req.user as IUser;
+
+      console.log('authorization authRole ', user)
 
       if (!user) {
         return next(new AuthenticationError("No se a podido identificar al usuario."));
