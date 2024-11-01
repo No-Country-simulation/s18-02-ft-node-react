@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "typeRoots": ["./node_modules/@types", "./src/types"], // Cambiar el orden
+    "target": "es2016",
+    "module": "commonjs",
+    "rootDir": "./src", // Cambiar a "./src"
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts"] // Solo incluir todos los .ts en src
+}
