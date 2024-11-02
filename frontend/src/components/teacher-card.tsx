@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import RatingStars from './rating-stars'
 import ClassModeBadge from './shared/class-mode-badge'

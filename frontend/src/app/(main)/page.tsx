@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import CommentCard from '@/components/comment-card'
 import { Faq } from '@/components/faq'
 import SearchBar from '@/components/search-bar'
@@ -15,6 +16,8 @@ import TrendingUpIcon from '@/icons/trending-up'
 import TrendingDownIcon from '@/icons/trending-down'
 import ClassChart from '@/components/class-chart'
 import RecommendedClasses from '@/components/shared/recommended-classes'
+
+export const dynamic = 'force-dynamic'
 
 export default async function Home () {
   let sessionUser: SessionUser | undefined
