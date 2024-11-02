@@ -5,5 +5,5 @@ export function setTokenFromClient (token: string) {
 export function getTokenFromClient () {
   return document.cookie.split(';')
     .find(ck => ck.includes('token'))
-    ?.replace('token=', '')
+    ?.replace('token=', '').trim()
 }
