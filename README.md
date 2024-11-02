@@ -1,8 +1,11 @@
 ﻿# s18-02-ft-node-react
+ 
 INDUSTRIA
+
 Edtech
 
 PRODUCTO
+
 Plataforma de gestión de clases particulares
 
 El Contexto
@@ -21,6 +24,7 @@ Esta solución no solo facilita el acceso a educación personalizada, sino que t
 
 
 EQUIPO
+
 Agustina sosa (UX/UI)
 Ximena Ellis (UX/UI)
 David Garcia (Front-end)
@@ -29,6 +33,7 @@ Alexis Mariano Paz (Back-end)
 Martín Alba (Back-end)
 
 TECNOLOGÍAS
+
 Trello
 Figma, Figjam 
 Node, Express, mongoDB, postgresSQL, Javascript Typescript, Express, Nest, mongoose, typeORMReact, Nextjs, TailwindCSS, TypeScript, Material UI, Shadcn, Zustand, TanStack Query
