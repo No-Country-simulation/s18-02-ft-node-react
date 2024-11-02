@@ -39,5 +39,6 @@ Figma, Figjam 
 Node, Express, mongoDB, postgresSQL, Javascript Typescript, Express, Nest, mongoose, typeORMReact, Nextjs, TailwindCSS, TypeScript, Material UI, Shadcn, Zustand, TanStack Query
 
 ENLACE FIGMA
+
 https://www.figma.com/design/XuAcPnPIFzttMXf5AceutH/s18-02-ft-node-react?node-id=251-2997&t=uNGAiUjSTKdlf3mw-1
 
