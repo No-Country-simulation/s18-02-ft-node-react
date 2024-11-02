@@ -12,8 +12,9 @@ export default function AvailabilityManager ({ user }: { user: TeacherUser }) {
   const handleClick = async () => {
     try {
       const data = await api.updatePreferences(availability)
-      console.log(data)
-      setEdit(false)
+      if (data.status === 'success') {
+        setEdit(false)
+      } else console.log('No se pueden actualizar los datos: ', data)
     } catch (error) {
       console.error(error)
     }

@@ -3,19 +3,17 @@ import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel'
 import TeacherCard from '../teacher-card'
 import { Button } from '../ui/button'
 import { TEACHERS } from '@/lib/constants'
-import api from '@/lib/server/api'
+// import api from '@/lib/server/api'
 
 export default async function RecommendedClasses ({ loged }: { loged: boolean }) {
-  let teachers
+  // let teachers
 
-  try {
-    const res = await api.getTeachers()
-    teachers = res.payload.docs
-  } catch (error) {
-    console.error(error)
-  }
-
-  console.log(teachers)
+  // try {
+  //   const res = await api.getTeachers()
+  //   teachers = res.payload.docs
+  // } catch (error) {
+  //   console.error(error)
+  // }
 
   return (
     <section className={cn('px-5 py-6', loged ? 'pb-0' : '')}>

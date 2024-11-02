@@ -20,7 +20,6 @@ export default function SubjectsSelector ({ defaultValue, onChangeValue }: {
   return (
     <>
       <Select onValueChange={(value) => {
-        console.log(value)
         if (selectedSubjects.includes(value)) return
         const newSelectedSubjects = [...selectedSubjects, value]
         changeSelectedSubjects(newSelectedSubjects)

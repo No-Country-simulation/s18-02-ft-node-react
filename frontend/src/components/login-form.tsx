@@ -25,13 +25,12 @@ export default function LoginForm () {
   const router = useRouter()
 
   const onSubmit = (values: LoginSchema) => {
-    console.log(values)
     api.login(values).then(res => {
       setSession(res.payload)
       setTokenFromClient(res.token)
       router.push('/')
     }).catch(error => {
-      console.log('error: ', error.response.data)
+      console.error('error: ', error.response.data)
       form.setError('email', { message: error.response.data.payload })
     })
   }

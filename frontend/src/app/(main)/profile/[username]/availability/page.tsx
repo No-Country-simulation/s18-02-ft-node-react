@@ -12,7 +12,6 @@ export default async function AvailabilityPage ({ params: { username } }: { para
 
   const userRes = await api.getMyProfile()
   const user = userRes.payload
-  console.log(user)
 
   return (
     <main className='flex-1 flex flex-col gap-y-6 py-6 px-4'>

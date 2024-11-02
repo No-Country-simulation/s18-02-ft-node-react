@@ -13,10 +13,8 @@ import RatingStars from '@/components/rating-stars'
 export default async function ProfilePage ({ params: { username } }: { params: { username: string } }) {
   const currentRes = await api.current()
   const sessionUser = currentRes.payload
-  console.log('Session user: ', sessionUser)
 
   const userRes = await (username === sessionUser.username ? api.getMyProfile() : api.getProfile(username))
-  console.log('profile: ', userRes)
 
   if (userRes.status !== 'success') {
     notFound()
@@ -25,8 +23,6 @@ export default async function ProfilePage ({ params: { username } }: { params: {
 
   const isMyProfile = user.id === sessionUser.id
   const isTeacher = user.role === 'teacher'
-
-  console.log(user)
 
   return (
     <main className='flex-1 py-6 px-5 space-y-6'>

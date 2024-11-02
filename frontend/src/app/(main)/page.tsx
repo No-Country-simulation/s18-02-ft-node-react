@@ -6,7 +6,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import { COMMENTS, NEXT_CLASSES, TEACHERS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import ClassCard from '@/components/class-card'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import api from '@/lib/server/api'
 import Link from 'next/link'
 import UserCard from '@/components/user-card'
@@ -26,7 +26,6 @@ export default async function Home () {
     console.log('Usuario no logeado')
   }
 
-  console.log('Home ', sessionUser)
   const loged = sessionUser !== undefined
 
   return (<>

@@ -30,17 +30,15 @@ export default function RegisterForm () {
   })
 
   const onSubmit = (values: RegisterSchema) => {
-    console.log(values, userRole)
     api.register({
       ...values,
       role: userRole
     }).then(res => {
       if (res.status === 'success') {
         setOpenDialog(true)
-      }
-      console.log(res)
+      } else console.log(res)
     }).catch(error => {
-      console.log(error)
+      console.error(error)
       form.setError('email', { message: error.response.data.payload })
     })
   }

@@ -154,7 +154,6 @@ export default function UpdateProfileForm ({ user }: { user: User }) {
           <Button
             className='w-full'
             type='submit'
-            onClick={() => { console.log('click submit') }}
           >Confirmar</Button>
         </div>
       </form>
