@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import api from './lib/server/api'
 
+export const dynamic = 'force-dynamic'
+
 export async function middleware (request: NextRequest) {
   const token = request.cookies.get('token')
 
