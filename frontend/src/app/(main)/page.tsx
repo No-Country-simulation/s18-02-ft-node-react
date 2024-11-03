@@ -8,7 +8,6 @@ import { COMMENTS, NEXT_CLASSES, TEACHERS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import ClassCard from '@/components/class-card'
 import { buttonVariants } from '@/components/ui/button'
-import api from '@/lib/server/api'
 import Link from 'next/link'
 import UserCard from '@/components/user-card'
 import { Badge } from '@/components/ui/badge'
@@ -16,18 +15,12 @@ import TrendingUpIcon from '@/icons/trending-up'
 import TrendingDownIcon from '@/icons/trending-down'
 import ClassChart from '@/components/class-chart'
 import RecommendedClasses from '@/components/shared/recommended-classes'
+import { getSessionUser } from '@/lib/server'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home () {
-  let sessionUser: SessionUser | undefined
-
-  try {
-    const currentRes = await api.current()
-    sessionUser = currentRes.payload
-  } catch (error) {
-    console.log('Usuario no logeado')
-  }
+  const { payload: sessionUser } = await getSessionUser()
 
   const loged = sessionUser !== undefined
 
@@ -79,7 +72,7 @@ export default async function Home () {
                 key={nextClass.id}
                 className='carouselItem max-w-sm pl-2 basis-auto'
               >
-                <ClassCard nextClass={nextClass} sessionUser={sessionUser!}/>
+                <ClassCard nextClass={nextClass} sessionUser={sessionUser}/>
               </CarouselItem>)}
             </CarouselContent>
           </Carousel>

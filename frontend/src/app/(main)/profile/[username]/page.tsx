@@ -9,10 +9,12 @@ import api from '@/lib/server/api'
 import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import RatingStars from '@/components/rating-stars'
+import { getSessionUser } from '@/lib/server'
 
 export default async function ProfilePage ({ params: { username } }: { params: { username: string } }) {
-  const currentRes = await api.current()
-  const sessionUser = currentRes.payload
+  const { payload: sessionUser } = await getSessionUser()
+
+  console.log(sessionUser)
 
   const userRes = await (username === sessionUser.username ? api.getMyProfile() : api.getProfile(username))
 

@@ -1,10 +1,10 @@
 import AvailabilityManager from '@/components/profile/availability-manager'
+import { getSessionUser } from '@/lib/server'
 import api from '@/lib/server/api'
 import { notFound } from 'next/navigation'
 
 export default async function AvailabilityPage ({ params: { username } }: { params: { username: string } }) {
-  const currentRes = await api.current()
-  const sessionUser = currentRes.payload
+  const { payload: sessionUser } = await getSessionUser()
 
   if (sessionUser.username !== username) {
     notFound()
